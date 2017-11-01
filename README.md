@@ -1,4 +1,4 @@
-# webvsc
+# webvsc-cli
 
 [![npm](https://img.shields.io/npm/l/@visbot/webvsc-cli.svg?style=flat-square)](https://www.npmjs.com/package/@visbot/webvsc-cli)
 [![npm](https://img.shields.io/npm/v/@visbot/webvsc-cli.svg?style=flat-square)](https://www.npmjs.com/package/@visbot/webvsc-cli)
