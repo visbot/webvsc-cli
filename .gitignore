@@ -1,0 +1,25 @@
+# Project
+**/_*.*
+**/*.map
+assets/
+
+# Global
+.Sync*
+error.log
+node_modules/
+npm-debug.log
+
+# AVS specific
+*.ape
+*.avs
+*.bmp
+*.cff
+*.clm
+*.exe
+*.pimp
+*.wav
+*.webvs
+*.zip
+avs/
+etc/
+ui/
