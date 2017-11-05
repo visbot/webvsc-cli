@@ -3,7 +3,7 @@
 // Dependencies
 import * as program from 'commander';
 import { argv }from 'process';
-import { lstat, readFile, writeFile } from 'graceful-fs';
+import { lstat, writeFile } from 'fs';
 import * as glob from 'glob';
 import { basename, dirname, join } from 'path';
 

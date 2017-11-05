@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Dependencies
 var program = require("commander");
 var process_1 = require("process");
-var graceful_fs_1 = require("graceful-fs");
+var fs_1 = require("fs");
 var glob = require("glob");
 var path_1 = require("path");
 // Modules
@@ -25,7 +25,7 @@ var convert = function (file, args) {
     var baseName = path_1.basename(file, '.avs');
     var dirName = path_1.dirname(file);
     var outFile = path_1.join(dirName, baseName + '.webvs');
-    graceful_fs_1.writeFile(outFile, presetJson, function (err) {
+    fs_1.writeFile(outFile, presetJson, function (err) {
         if (err)
             console.error(err);
         if (args.quiet !== true)
@@ -38,7 +38,7 @@ if (program.args !== 'undefined' && program.args.length > 0) {
             if (error)
                 throw error;
             files.forEach(function (file) {
-                graceful_fs_1.lstat(file, function (error, stats) {
+                fs_1.lstat(file, function (error, stats) {
                     if (error)
                         return;
                     if (stats.isFile()) {
