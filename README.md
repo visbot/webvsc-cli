@@ -12,8 +12,6 @@ CLI tool to batch-convert [Winamp AVS presets](https://www.wikiwand.com/en/Advan
 
 ## Installation
 
-### npm
-
 Use your preferred [Node](https://nodejs.org) package manager to install the CLI globally
 
 ```sh
