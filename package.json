@@ -30,8 +30,7 @@
     "@visbot/webvsc": "^1.1.0",
     "chalk": "2.1.0",
     "commander": "^2.11.0",
-    "glob": "^7.1.1",
-    "graceful-fs": "^4.1.11"
+    "glob": "^7.1.1"
   },
   "devDependencies": {
     "@types/node": "^8.0.28",
