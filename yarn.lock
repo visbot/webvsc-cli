@@ -6,11 +6,12 @@
   version "8.0.47"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.47.tgz#968e596f91acd59069054558a00708c445ca30c2"
 
-"@visbot/webvsc@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@visbot/webvsc/-/webvsc-1.1.0.tgz#d974a75081ce7888dd82a5fe5fcc072966d49dfa"
+"@visbot/webvsc@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@visbot/webvsc/-/webvsc-1.2.0.tgz#74a80cc5f2e41ff83f6148c262c55d6add3ef49a"
   dependencies:
     chalk "2.1.0"
+    graceful-fs "^4.1.11"
 
 ansi-regex@^2.0.0:
   version "2.1.1"
