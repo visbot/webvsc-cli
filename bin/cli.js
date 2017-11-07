@@ -31,13 +31,10 @@ var convert = function (file, customArgs) {
         var dirName = path_1.dirname(file);
         var outFile = path_1.join(dirName, baseName + '.webvs');
         var modifiedTime = fs_1.statSync(file).mtime;
-        var preset = {
-            'name': baseName,
-            'date': modifiedTime.toISOString()
-        };
-        args['preset'] = preset;
+        var presetName = baseName;
+        var presetDate = modifiedTime.toISOString();
         var whitespace = (program.minify === true) ? 0 : 4;
-        var presetObj = convert_1.convertPreset(data, args);
+        var presetObj = convert_1.convertPreset(data, presetName, presetDate, args);
         var presetJson = JSON.stringify(presetObj, null, whitespace);
         if (args.quiet !== true)
             console.log("Writing \"" + outFile + "\"");
