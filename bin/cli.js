@@ -36,7 +36,6 @@ var convert = function (file, customArgs) {
             'date': modifiedTime.toISOString()
         };
         args['preset'] = preset;
-        console.log(args);
         var whitespace = (program.minify === true) ? 0 : 4;
         var presetObj = convert_1.convertPreset(data, args);
         var presetJson = JSON.stringify(presetObj, null, whitespace);
