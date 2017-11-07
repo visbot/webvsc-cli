@@ -3,37 +3,56 @@
 // Dependencies
 import * as program from 'commander';
 import { argv }from 'process';
-import { lstat, writeFile } from 'fs';
+import { lstat, readFile, statSync, writeFile } from 'fs';
 import * as glob from 'glob';
-import { basename, dirname, join } from 'path';
+import { basename, dirname, extname, join } from 'path';
 
 // Modules
 import { convertPreset } from '@visbot/webvsc/lib/convert';
 import { Arguments } from '@visbot/webvsc/lib/types';
 
+const args = {
+    verbose: 0,
+    quiet: false
+};
+
 program
     .version(require('../package.json').version)
     .usage('[options] <file(s)>')
-    .option('-v, --verbose <int>', 'print more information, can be set multiple times to increase output', (d, t: number): number => { return t + 1; }, 0)
+    .option('-v, --verbose <int>', 'print more information, can be set multiple times to increase output', parseInt)
     .option('-m, --minify', 'minify generated JSON')
     .option('-q, --quiet', 'print errors only')
     .option('-n, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
     .parse(argv);
 
-const convert = (file: string, args: Arguments): void => {
-    if (args.quiet !== true) console.log(`\nReading "${file}"`);
-    let presetObj = convertPreset(file, args);
+const convert = (file: string, customArgs?: Arguments): void => {
+    (<any>Object).assign(args, customArgs);
 
-    let whitespace: number = (program.minify === true) ? 0 : 4;
-    let presetJson = JSON.stringify(presetObj, null, whitespace);
+    readFile(file, (error: Object, data: ArrayBuffer) => {
+        if (args.quiet !== true) console.log(`\nReading "${file}"`);
 
-    let baseName = basename(file, '.avs');
-    let dirName = dirname(file);
-    let outFile = join(dirName, baseName + '.webvs');
+        // File Meta
+        let extName = extname(file);
+        let baseName = basename(file, extName);
+        let dirName = dirname(file);
+        let outFile = join(dirName, baseName + '.webvs');
+        let modifiedTime = statSync(file).mtime;
 
-    writeFile(outFile, presetJson, (err) => {
-      if (err) console.error(err);
-      if (args.quiet !== true) console.log(`Writing "${outFile}"`);
+        let preset = {
+            'name': baseName,
+            'date': modifiedTime.toISOString()
+        };
+        args['preset'] = preset;
+
+        let whitespace: number = (program.minify === true) ? 0 : 4;
+        let presetObj = convertPreset(data, args);
+        let presetJson = JSON.stringify(presetObj, null, whitespace);
+
+        if (args.quiet !== true) console.log(`Writing "${outFile}"`);
+
+        writeFile(outFile, presetJson, (err) => {
+          if (err) console.error(err);
+        });
     });
 };
 
