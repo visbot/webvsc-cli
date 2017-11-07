@@ -38,14 +38,11 @@ const convert = (file: string, customArgs?: Arguments): void => {
         let outFile = join(dirName, baseName + '.webvs');
         let modifiedTime = statSync(file).mtime;
 
-        let preset = {
-            'name': baseName,
-            'date': modifiedTime.toISOString()
-        };
-        args['preset'] = preset;
+        let presetName = baseName;
+        let presetDate = modifiedTime.toISOString();
 
         let whitespace: number = (program.minify === true) ? 0 : 4;
-        let presetObj = convertPreset(data, args);
+        let presetObj = convertPreset(data, presetName, presetDate, args);
         let presetJson = JSON.stringify(presetObj, null, whitespace);
 
         if (args.quiet !== true) console.log(`Writing "${outFile}"`);
