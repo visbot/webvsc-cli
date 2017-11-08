@@ -7,7 +7,8 @@ var fs_1 = require("fs");
 var glob = require("glob");
 var path_1 = require("path");
 // Modules
-var convert_1 = require("@visbot/webvsc/lib/convert");
+var webvsc_1 = require("@visbot/webvsc");
+// import { Arguments } from '@visbot/webvsc/lib/types';
 var args = {
     verbose: 0,
     quiet: false
@@ -15,7 +16,7 @@ var args = {
 program
     .version(require('../package.json').version)
     .usage('[options] <file(s)>')
-    .option('-v, --verbose <int>', 'print more information, can be set multiple times to increase output', parseInt)
+    .option('-v, --verbose <n>', 'control the amount of output displayed', parseInt)
     .option('-m, --minify', 'minify generated JSON')
     .option('-q, --quiet', 'print errors only')
     .option('-n, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
@@ -34,7 +35,7 @@ var convert = function (file, customArgs) {
         var presetName = baseName;
         var presetDate = modifiedTime.toISOString();
         var whitespace = (program.minify === true) ? 0 : 4;
-        var presetObj = convert_1.convertPreset(data, presetName, presetDate, args);
+        var presetObj = webvsc_1.convertPreset(data, presetName, presetDate, args);
         var presetJson = JSON.stringify(presetObj, null, whitespace);
         if (args.quiet !== true)
             console.log("Writing \"" + outFile + "\"");

@@ -37,6 +37,7 @@
     "typescript": "^2.5.2"
   },
   "scripts": {
-    "build": "tsc -p ./"
+    "build": "tsc -p ./",
+    "postinstall": "tsc -p ./"
   }
 }

@@ -8,8 +8,8 @@ import * as glob from 'glob';
 import { basename, dirname, extname, join } from 'path';
 
 // Modules
-import { convertPreset } from '@visbot/webvsc/lib/convert';
-import { Arguments } from '@visbot/webvsc/lib/types';
+import { convertPreset } from '@visbot/webvsc';
+// import { Arguments } from '@visbot/webvsc/lib/types';
 
 const args = {
     verbose: 0,
@@ -19,13 +19,13 @@ const args = {
 program
     .version(require('../package.json').version)
     .usage('[options] <file(s)>')
-    .option('-v, --verbose <int>', 'control the amount of output displayed', parseInt)
+    .option('-v, --verbose <n>', 'control the amount of output displayed', parseInt)
     .option('-m, --minify', 'minify generated JSON')
     .option('-q, --quiet', 'print errors only')
     .option('-n, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
     .parse(argv);
 
-const convert = (file: string, customArgs?: Arguments): void => {
+const convert = (file: string, customArgs?): void => {
     (<any>Object).assign(args, customArgs);
 
     readFile(file, (error: Object, data: ArrayBuffer) => {

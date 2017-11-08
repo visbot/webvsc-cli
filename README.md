@@ -31,12 +31,12 @@ $ webvsc
 
   Options:
 
-    -V, --version    output the version number
-    -v, --verbose    print more information, can be set multiple times to increase output
-    -m, --minify     minify generated JSON
-    -q, --quiet      print errors only
-    -n, --no-hidden  don't extract hidden strings from fixed-size strings
-    -h, --help       output usage information
+    -V, --version      output the version number
+    -v, --verbose <n>  control the amount of output displayed
+    -m, --minify       minify generated JSON
+    -q, --quiet        print errors only
+    -n, --no-hidden    don't extract hidden strings from fixed-size strings
+    -h, --help         output usage information
 ```
 
 Commonly, you would run `webvsc "avs/**/*.avs"` to convert a bunch of presets, or just one. When using wildcards, it's important to wrap the path in quotes.
