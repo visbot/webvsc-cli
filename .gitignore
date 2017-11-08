@@ -2,6 +2,8 @@
 **/_*.*
 **/*.map
 assets/
+todo.md
+test.js
 
 # Global
 .Sync*
