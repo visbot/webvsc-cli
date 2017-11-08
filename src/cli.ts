@@ -19,7 +19,7 @@ const args = {
 program
     .version(require('../package.json').version)
     .usage('[options] <file(s)>')
-    .option('-v, --verbose <int>', 'print more information, can be set multiple times to increase output', parseInt)
+    .option('-v, --verbose <int>', 'control the amount of output displayed', parseInt)
     .option('-m, --minify', 'minify generated JSON')
     .option('-q, --quiet', 'print errors only')
     .option('-n, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
