@@ -22,7 +22,7 @@ $ yarn global add @visbot/webvsc-cli || npm install --global @visbot/webvsc-cli
 
 ### CLI
 
-Once setup, you can run `webvsc --help` to list available options. Alternatively, use `node build/cli.js`.
+Once setup, you can run `webvsc --help` to list available options:
 
 ```
 $ webvsc
