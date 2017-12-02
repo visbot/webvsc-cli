@@ -46,7 +46,7 @@ Commonly, you would run `webvsc "avs/**/*.avs"` to convert a bunch of presets, o
 When converting thousands of presets, you might run into `EMFILE` errors. In that case try the following workaround:
 
 ```sh
-$ for dir in avs/*; do echo $dir; webvsc "$dir/**/*.avs" --silent; done
+$ for dir in avs/*; do echo $dir; webvsc "$dir/**/*.avs" --quiet; done
 ```
 
 ## License
