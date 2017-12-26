@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Dependencies
 var program = require("commander");
 var process_1 = require("process");
-var fs_1 = require("fs");
+var graceful_fs_1 = require("graceful-fs");
 var glob = require("glob");
 var path_1 = require("path");
 // Modules
@@ -23,7 +23,7 @@ program
     .parse(process_1.argv);
 var convert = function (file, customArgs) {
     Object.assign(args, customArgs);
-    fs_1.readFile(file, function (error, data) {
+    graceful_fs_1.readFile(file, function (error, data) {
         if (args.quiet !== true)
             console.log("\nReading \"" + file + "\"");
         // File Meta
@@ -31,15 +31,14 @@ var convert = function (file, customArgs) {
         var baseName = path_1.basename(file, extName);
         var dirName = path_1.dirname(file);
         var outFile = path_1.join(dirName, baseName + '.webvs');
-        var modifiedTime = fs_1.statSync(file).mtime;
-        var presetName = baseName;
+        var modifiedTime = graceful_fs_1.statSync(file).mtime;
         var presetDate = modifiedTime.toISOString();
         var whitespace = (program.minify === true) ? 0 : 4;
-        var presetObj = webvsc_1.convertPreset(data, presetName, presetDate, args);
+        var presetObj = webvsc_1.convertPreset(data, baseName, presetDate, args);
         var presetJson = JSON.stringify(presetObj, null, whitespace);
         if (args.quiet !== true)
             console.log("Writing \"" + outFile + "\"");
-        fs_1.writeFile(outFile, presetJson, function (err) {
+        graceful_fs_1.writeFile(outFile, presetJson, function (err) {
             if (err)
                 console.error(err);
         });
@@ -51,7 +50,7 @@ if (program.args !== 'undefined' && program.args.length > 0) {
             if (error)
                 throw error;
             files.forEach(function (file) {
-                fs_1.lstat(file, function (error, stats) {
+                graceful_fs_1.lstat(file, function (error, stats) {
                     if (error)
                         return;
                     if (stats.isFile()) {
