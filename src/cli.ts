@@ -9,7 +9,6 @@ import { basename, dirname, extname, join } from 'path';
 
 // Modules
 import { convertPreset } from '@visbot/webvsc';
-// import { Arguments } from '@visbot/webvsc/lib/types';
 
 const args = {
     verbose: 0,

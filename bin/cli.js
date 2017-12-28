@@ -8,7 +8,6 @@ var glob = require("glob");
 var path_1 = require("path");
 // Modules
 var webvsc_1 = require("@visbot/webvsc");
-// import { Arguments } from '@visbot/webvsc/lib/types';
 var args = {
     verbose: 0,
     quiet: false
