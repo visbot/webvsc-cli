@@ -43,7 +43,7 @@ Commonly, you would run `webvsc "avs/**/*.avs"` to convert a bunch of presets, o
 
 ### Troubleshooting
 
-When converting thousands of presets, you might run into `EMFILE` errors. In that case try the following workaround:
+When trying to convert a large number of files, you might run into an `EMFILE` error. This is a well-documented [issue](https://github.com/nodejs/node/issues/1941) that occurs whenever the number of [maximum open files](http://blog.izs.me/post/56827866110/wtf-is-emfile-and-why-does-it-happen-to-me) exceeds its limit. In such a case, you can use the following as workaround.
 
 ```sh
 # Bash
