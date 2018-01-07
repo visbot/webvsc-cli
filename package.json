@@ -9,7 +9,6 @@
   ],
   "homepage": "https://github.com/idleberg/webvsc-cli#readme",
   "main": "index.js",
-  "types": "./src/types.d.ts",
   "bin": {
     "webvsc": "./index.js"
   },
