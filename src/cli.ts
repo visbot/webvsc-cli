@@ -21,7 +21,8 @@ program
     .option('-v, --verbose <n>', 'control the amount of output displayed', parseInt)
     .option('-m, --minify', 'minify generated JSON')
     .option('-q, --quiet', 'print errors only')
-    .option('-n, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
+    .option('-D, --no-date', 'don\'t create date from file meta')
+    .option('-H, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
     .parse(argv);
 
 const convert = (file: string, customArgs?): void => {
@@ -37,7 +38,7 @@ const convert = (file: string, customArgs?): void => {
         let outFile = join(dirName, baseName + '.webvs');
         let modifiedTime = statSync(file).mtime;
 
-        let presetDate = modifiedTime.toISOString();
+        let presetDate: string = (program.date === false) ? '2000-03-03T00:00:00.000Z' : modifiedTime.toISOString();
 
         let whitespace: number = (program.minify === true) ? 0 : 4;
         let presetObj = convertPreset(data, baseName, presetDate, args);

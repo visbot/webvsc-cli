@@ -18,7 +18,8 @@ program
     .option('-v, --verbose <n>', 'control the amount of output displayed', parseInt)
     .option('-m, --minify', 'minify generated JSON')
     .option('-q, --quiet', 'print errors only')
-    .option('-n, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
+    .option('-D, --no-date', 'don\'t create date from file meta')
+    .option('-H, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
     .parse(process_1.argv);
 var convert = function (file, customArgs) {
     Object.assign(args, customArgs);
@@ -31,7 +32,7 @@ var convert = function (file, customArgs) {
         var dirName = path_1.dirname(file);
         var outFile = path_1.join(dirName, baseName + '.webvs');
         var modifiedTime = graceful_fs_1.statSync(file).mtime;
-        var presetDate = modifiedTime.toISOString();
+        var presetDate = (program.date === false) ? '2000-03-03T00:00:00.000Z' : modifiedTime.toISOString();
         var whitespace = (program.minify === true) ? 0 : 4;
         var presetObj = webvsc_1.convertPreset(data, baseName, presetDate, args);
         var presetJson = JSON.stringify(presetObj, null, whitespace);
