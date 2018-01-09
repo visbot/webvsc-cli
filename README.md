@@ -35,7 +35,8 @@ $ webvsc
     -v, --verbose <n>  control the amount of output displayed
     -m, --minify       minify generated JSON
     -q, --quiet        print errors only
-    -n, --no-hidden    don't extract hidden strings from fixed-size strings
+    -D, --no-date      don't create date from file meta
+    -H, --no-hidden    don't extract hidden strings from fixed-size strings
     -h, --help         output usage information
 ```
 
