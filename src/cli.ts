@@ -11,8 +11,9 @@ import { basename, dirname, extname, join } from 'path';
 import { convertPreset } from '@visbot/webvsc';
 
 const args = {
-    verbose: 0,
-    quiet: false
+    hidden: true,
+    quiet: false,
+    verbose: 0
 };
 
 program
@@ -27,6 +28,7 @@ program
 
 const convert = (file: string, customArgs?): void => {
     (<any>Object).assign(args, customArgs);
+    let whitespace: number = (program.minify === true) ? 0 : 4;
 
     readFile(file, (error: Object, data: ArrayBuffer) => {
         if (args.quiet !== true) console.log(`\nReading "${file}"`);
@@ -39,8 +41,6 @@ const convert = (file: string, customArgs?): void => {
         let modifiedTime = statSync(file).mtime;
 
         let presetDate: string = (program.date === false) ? '2000-03-03T00:00:00.000Z' : modifiedTime.toISOString();
-
-        let whitespace: number = (program.minify === true) ? 0 : 4;
         let presetObj = convertPreset(data, baseName, presetDate, args);
         let presetJson = JSON.stringify(presetObj, null, whitespace);
 
