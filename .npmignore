@@ -1,3 +1,7 @@
+.circleci
 .editorconfig
 .gitignore
 .travis.yml
+src/
+tsconfig.json
+tslint.json
