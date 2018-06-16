@@ -40,7 +40,7 @@ $ webvsc
     -h, --help         output usage information
 ```
 
-Commonly, you would run `webvsc "avs/**/*.avs"` to convert a bunch of presets, or just one. When using wildcards, it's important to wrap the path in quotes.
+Commonly, you would run `webvsc "avs/**/*.avs"` to convert a bunch of presets, or just one. When using wildcards, you *might* have to wrap the path in quotes.
 
 ### Troubleshooting
 
