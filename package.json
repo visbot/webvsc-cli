@@ -27,7 +27,7 @@
     "winamp"
   ],
   "dependencies": {
-    "@visbot/webvsc": "^2.0.0",
+    "@visbot/webvsc": "^2.2.0",
     "commander": "^2.15.1",
     "glob": "^7.1.2",
     "graceful-fs": "^4.1.11",
