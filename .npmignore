@@ -1,3 +1,5 @@
+*.avs
+*.webvs
 .circleci
 .editorconfig
 .gitignore
