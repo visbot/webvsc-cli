@@ -1,10 +1,10 @@
 # webvsc-cli
 
-[![npm](https://img.shields.io/npm/l/@visbot/webvsc-cli.svg?style=flat-square)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![npm](https://img.shields.io/npm/v/@visbot/webvsc-cli.svg?style=flat-square)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![Travis](https://img.shields.io/travis/idleberg/webvsc-cli.svg?style=flat-square)](https://travis-ci.org/idleberg/webvsc-cli)
-[![David](https://img.shields.io/david/idleberg/webvsc-cli.svg?style=flat-square)](https://david-dm.org/idleberg/webvsc-cli)
-[![David](https://img.shields.io/david/dev/idleberg/webvsc-cli.svg?style=flat-square)](https://david-dm.org/idleberg/webvsc-cli?type=dev)
+[![npm](https://flat.badgen.net/npm/license/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
+[![npm](https://flat.badgen.net/npm/v/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
+[![Travis](https://flat.badgen.net/travis/idleberg/webvsc-cli)](https://travis-ci.org/idleberg/webvsc-cli)
+[![David](https://flat.badgen.net/david/dep/idleberg/webvsc-cli)](https://david-dm.org/idleberg/webvsc-cli)
+[![David](https://flat.badgen.net/david/dev/idleberg/webvsc-cli)](https://david-dm.org/idleberg/webvsc-cli?type=dev)
 
 ## Description
 
