@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.3.2",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0",
     "tslint": "^5.10.0",
     "typescript": "^2.9.2"
   },
