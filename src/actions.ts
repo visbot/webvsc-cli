@@ -20,15 +20,18 @@ async function convertFile(avsFile: string, options = defaultOptions) {
 }
 
 export async function convert(inputFiles, options = defaultOptions) {
+	console.log(/* let it breathe */);
+	console.time('✨ Completed');
+
 	for (const avsFile of inputFiles.sort()) {
 		const presetName = basename(avsFile, '.avs');
 
 		try {
 			const webvs = await convertFile(avsFile, options);
 			await fs.writeFile(`${presetName}.webvs`, JSON.stringify(webvs, null, options.indent), 'utf-8');
-			console.log(logSymbols.success, `Converted ${colors.cyan(presetName)}`);
+			console.log(logSymbols.success, `Converted ${colors.cyan(avsFile)}`);
 		} catch (err) {
-			console.error(logSymbols.error, `Converted ${colors.cyan(presetName)}`);
+			console.error(logSymbols.error, `Converted ${colors.cyan(avsFile)}`);
 
 			if (options.debug) {
 				console.log(/* let it breathe */);
@@ -38,6 +41,9 @@ export async function convert(inputFiles, options = defaultOptions) {
 			continue;
 		}
 	}
+
+	console.log(/* let it breathe */);
+	console.timeEnd('✨ Completed');
 }
 
 export async function info(inputFiles, options = defaultOptions) {
@@ -70,6 +76,7 @@ export async function info(inputFiles, options = defaultOptions) {
 		console.log(/* let it breathe */);
 		console.log(`File: ${colors.green(avsFile)}`);
 		console.log(/* let it breathe */);
+
 		console.log(`Size: ${colors.blue(prettyBytes(stat.size))}`);
 		console.log(`Modified: ${colors.blue(new Date(stat.mtime).toUTCString())}`);
 		console.log(`SHA-256: ${colors.blue(await Utils.hashFile(avsFile))}`);
