@@ -1,17 +1,26 @@
-# Project
-**/_*.*
-**/*.map
-assets/
-todo.md
-test.js
-
-# Global
-.Sync*
-error.log
+# package manager files
+bower_components/
 node_modules/
-npm-debug.log
+vendor/
+npm-debug.log*
+package-lock.json
+yarn-error.log
+yarn.lock
+shrinkwrap.yaml
 
-# AVS specific
+# development
+.eslintcache
+tsconfig.tsbuildinfo
+
+# build
+bin/
+
+# project specific
+test.js
+test.ts
+todo.md
+
+# avs specific
 *.ape
 *.avs
 *.bmp
