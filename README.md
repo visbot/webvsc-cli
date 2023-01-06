@@ -3,8 +3,6 @@
 [![npm](https://flat.badgen.net/npm/license/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
 [![npm](https://flat.badgen.net/npm/v/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
 [![Travis](https://flat.badgen.net/travis/idleberg/webvsc-cli)](https://travis-ci.org/idleberg/webvsc-cli)
-[![David](https://flat.badgen.net/david/dep/idleberg/webvsc-cli)](https://david-dm.org/idleberg/webvsc-cli)
-[![David](https://flat.badgen.net/david/dev/idleberg/webvsc-cli)](https://david-dm.org/idleberg/webvsc-cli?type=dev)
 
 ## Description
 
@@ -27,20 +25,28 @@ Once setup, you can run `webvsc --help` to list available options:
 ```
 $ webvsc
 
-  Usage: webvsc [options] <file(s)>
+Usage: cli [options] [command]
 
-  Options:
+Options:
+  -h, --help                   display help for command
 
-    -V, --version      output the version number
-    -v, --verbose <n>  control the amount of output displayed
-    -m, --minify       minify generated JSON
-    -q, --quiet        print errors only
-    -D, --no-date      don't create date from file meta
-    -H, --no-hidden    don't extract hidden strings from fixed-size strings
-    -h, --help         output usage information
+Commands:
+  convert [options] <file...>  convert presets to JSON format
+  info [options] <file...>     show info about AVS presets
+  help [command]               display help for command
 ```
 
-Commonly, you would run `webvsc "avs/**/*.avs"` to convert a bunch of presets, or just one. When using wildcards, you *might* have to wrap the path in quotes.
+Refer to the help for each sub-command to list its options.
+
+#### `convert`
+
+Converts prests to Webvs JSON format, support globs
+
+**Example:**
+
+```sh
+webvs convert ./**/*.avs
+```
 
 ### Troubleshooting
 
@@ -48,10 +54,10 @@ When trying to convert a large number of files, you might run into an `EMFILE` e
 
 ```sh
 # Bash
-$ for dir in avs/*; do echo $dir; webvsc "$dir/**/*.avs" --quiet; done
+$ for dir in avs/*; do echo $dir; webvsc convert "$dir/**/*.avs" --quiet; done
 
 # Windows
-$ for /r %i in (avs/*) do webvsc %i --quiet
+$ for /r %i in (avs/*) do webvsc convert %i --quiet
 ```
 
 ## License

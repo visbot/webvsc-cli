@@ -9,7 +9,6 @@ const pluginEffects = [
 	'BufferBlend',
 	'ChannelShift',
 	'ColorMap',
-	'ColorModifier',
 	'ColorReduction',
 	'ConvolutionFilter',
 	'Fluid',
