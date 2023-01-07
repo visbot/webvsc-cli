@@ -1,69 +1,68 @@
 {
-  "name": "@visbot/webvsc-cli",
-  "version": "0.6.1",
-  "description": "CLI tool to batch-convert Winamp AVS presets into Webvs JSON",
-  "license": "MIT",
-  "contributors": [
-    "idleberg",
-    "grandchild"
-  ],
-  "homepage": "https://github.com/idleberg/webvsc-cli#readme",
-  "type": "module",
-  "bin": {
-    "webvsc": "./index.mjs"
-  },
-  "files": [
-    "bin",
-    "LICENSE",
-    "README.md"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/idleberg/webvsc-cli.git"
-  },
-  "bugs": {
-    "url": "https://github.com/idleberg/webvsc-cli/issues"
-  },
-  "keywords": [
-    "avs",
-    "webvs",
-    "cli",
-    "converter",
-    "winamp"
-  ],
+	"name": "@visbot/webvsc-cli",
+	"version": "0.6.1",
+	"description": "CLI tool to batch-convert Winamp AVS presets into Webvs JSON",
+	"license": "MIT",
+	"contributors": [
+		"idleberg",
+		"grandchild"
+	],
+	"homepage": "https://github.com/idleberg/webvsc-cli#readme",
+	"type": "module",
+	"bin": {
+		"webvsc": "./index.mjs"
+	},
+	"files": [
+		"bin",
+		"LICENSE",
+		"README.md"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/idleberg/webvsc-cli.git"
+	},
+	"bugs": {
+		"url": "https://github.com/idleberg/webvsc-cli/issues"
+	},
+	"keywords": [
+		"avs",
+		"webvs",
+		"cli",
+		"converter",
+		"winamp"
+	],
 	"scripts": {
-			"build": "rollup --config",
-			"dev": "npm run start",
+		"build": "rollup --config",
+		"dev": "npm run start",
 		"lint": "eslint ./src --ignore-path .gitignore",
 		"prepack": "npm run build",
-			"start": "rollup --watch --config"
+		"start": "rollup --watch --config"
 	},
-  "dependencies": {
-    "@visbot/webvsc": "github:grandchild/AVS-File-Decoder#main",
-    "commander": "^9.4.1",
-    "globby": "^13.1.3",
-    "graceful-fs": "^4.2.10",
-    "log-symbols": "^5.1.0",
-    "picocolors": "^1.0.0",
-    "pretty-bytes": "^6.0.0",
-    "table": "^6.8.1"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.0",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-typescript": "^10.0.1",
-    "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
-    "@typescript-eslint/parser": "^5.48.0",
-    "eslint": "^8.31.0",
-    "eslint-plugin-json": "^3.1.0",
-    "husky": "^8.0.3",
-    "rollup": "^3.9.1",
-    "tslint": "^5.20.1",
-    "typescript": "^4.9.4"
-  },
-  "lint-staged": {
-    "*.(json|ts)": "eslint --cache --fix"
-  }
+	"dependencies": {
+		"@visbot/webvsc": "3.0.0-alpha",
+		"commander": "^9.4.1",
+		"globby": "^13.1.3",
+		"graceful-fs": "^4.2.10",
+		"log-symbols": "^5.1.0",
+		"picocolors": "^1.0.0",
+		"pretty-bytes": "^6.0.0",
+		"table": "^6.8.1"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^24.0.0",
+		"@rollup/plugin-json": "^6.0.0",
+		"@rollup/plugin-node-resolve": "^15.0.1",
+		"@rollup/plugin-typescript": "^11.0.0",
+		"@types/node": "^18.11.18",
+		"@typescript-eslint/eslint-plugin": "^5.48.0",
+		"@typescript-eslint/parser": "^5.48.0",
+		"eslint": "^8.31.0",
+		"eslint-plugin-json": "^3.1.0",
+		"husky": "^8.0.3",
+		"rollup": "^3.9.1",
+		"typescript": "^4.9.4"
+	},
+	"lint-staged": {
+		"*.(json|ts)": "eslint --cache --fix"
+	}
 }
