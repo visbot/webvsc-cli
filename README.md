@@ -40,7 +40,7 @@ Refer to the help for each sub-command to list its options.
 
 #### `convert`
 
-Converts prests to Webvs JSON format, support globs
+Converts presets to Webvs JSON format, support globs
 
 **Example:**
 
