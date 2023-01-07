@@ -45,19 +45,43 @@ Converts presets to Webvs JSON format, support globs
 **Example:**
 
 ```sh
-webvs convert ./**/*.avs
+$ webvs convert ./**/*.avs
 ```
 
 
 
-#### `convert`
+#### `info`
 
-Converts prests to Webvs JSON format, support globs
+Show info about AVS presets
 
 **Example:**
 
 ```sh
-webvs convert ./**/*.avs
+$ webvs info pillow_fight.avs
+
+File: dynamic duo - pillow fight.avs
+
+Size: 5.22 kB
+Modified: Sun, 04 Jan 2009 23:31:22 GMT
+SHA-256: 3c8bc2778a433cd27d46e069b35412e954226be8beb358e867b28570285eea14
+
+  Effects
+  - BufferSave (1)
+  - ColorClip (1)
+  - Comment (1)
+  - EffectList (1)
+  - Invert (1)
+  - Movement (1)
+
+  APEs
+  - ColorMap (1)
+  - ConvolutionFilter (1)
+  - TexerII (3)
+
+  Images
+  - avsres_texer_square_sharp_16x16.bmp (1)
+  - avsres_texer_square_sharp_24x24.bmp (1)
+  - avsres_texer_square_sharp_30x30.bmp (1)
 ```
 
 ### Troubleshooting
