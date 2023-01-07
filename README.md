@@ -2,7 +2,7 @@
 
 [![npm](https://flat.badgen.net/npm/license/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
 [![npm](https://flat.badgen.net/npm/v/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![Travis](https://flat.badgen.net/travis/idleberg/webvsc-cli)](https://travis-ci.org/idleberg/webvsc-cli)
+[![CI](https://img.shields.io/github/actions/workflow/status/idleberg/webvsc-cli/default.yml?style=flat-square)](https://github.com/idleberg/webvsc-cli/actions)
 
 ## Description
 
@@ -37,6 +37,18 @@ Commands:
 ```
 
 Refer to the help for each sub-command to list its options.
+
+#### `convert`
+
+Converts prests to Webvs JSON format, support globs
+
+**Example:**
+
+```sh
+webvs convert ./**/*.avs
+```
+
+
 
 #### `convert`
 
