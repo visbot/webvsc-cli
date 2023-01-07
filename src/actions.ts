@@ -25,11 +25,12 @@ export async function convert(inputFiles, options = defaultOptions) {
 
 	for (const avsFile of inputFiles.sort()) {
 		const presetName = basename(avsFile, '.avs');
-		const dirName = dirname(avsFile, '.avs');
+		const dirName = dirname(avsFile);
+		const outputFile = resolve(dirName, `${presetName}.webvs`);
 
 		try {
 			const webvs = await convertFile(avsFile, options);
-			await fs.writeFile(resolve(dirName, `${presetName}.webvs`), JSON.stringify(webvs, null, options.indent), 'utf-8');
+			await fs.writeFile(outputFile, JSON.stringify(webvs, null, options.indent), 'utf-8');
 			console.log(logSymbols.success, `Converted ${colors.cyan(avsFile)}`);
 		} catch (err) {
 			console.error(logSymbols.error, `Converted ${colors.cyan(avsFile)}`);
