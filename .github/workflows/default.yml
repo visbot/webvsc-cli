@@ -49,6 +49,3 @@ jobs:
 
       - name: Build Source
         run: pnpm run --if-present build
-
-      - name: Run Tests
-        run: pnpm run --if-present test

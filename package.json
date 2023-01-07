@@ -36,7 +36,8 @@
 		"dev": "npm run start",
 		"lint": "eslint ./src --ignore-path .gitignore",
 		"prepack": "npm run build",
-		"start": "rollup --watch --config"
+		"start": "rollup --watch --config",
+		"test": "npm run lint"
 	},
 	"dependencies": {
 		"@visbot/webvsc": "3.0.0-alpha",
