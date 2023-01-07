@@ -12,7 +12,7 @@ import * as actions from './actions';
 		.option('-H, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
 		.action(actions.convert);
 
-		program
+	program
 		.command('info <file...>')
 		.description('show info about AVS presets')
 		.option('-d, --debug', 'print additional debug information')
