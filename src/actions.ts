@@ -1,4 +1,4 @@
-import { basename } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import { convertPreset } from '@visbot/webvsc';
 import { promises as fs } from 'node:fs';
 import * as Utils from './utils';
@@ -25,10 +25,11 @@ export async function convert(inputFiles, options = defaultOptions) {
 
 	for (const avsFile of inputFiles.sort()) {
 		const presetName = basename(avsFile, '.avs');
+		const dirName = dirname(avsFile, '.avs');
 
 		try {
 			const webvs = await convertFile(avsFile, options);
-			await fs.writeFile(`${presetName}.webvs`, JSON.stringify(webvs, null, options.indent), 'utf-8');
+			await fs.writeFile(resolve(dirName, `${presetName}.webvs`), JSON.stringify(webvs, null, options.indent), 'utf-8');
 			console.log(logSymbols.success, `Converted ${colors.cyan(avsFile)}`);
 		} catch (err) {
 			console.error(logSymbols.error, `Converted ${colors.cyan(avsFile)}`);
