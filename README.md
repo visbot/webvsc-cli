@@ -45,7 +45,7 @@ Converts presets to Webvs JSON format, support globs
 **Example:**
 
 ```sh
-$ webvs convert ./**/*.avs
+$ webvsc convert ./**/*.avs
 ```
 
 
@@ -57,7 +57,7 @@ Show info about AVS presets
 **Example:**
 
 ```sh
-$ webvs info pillow_fight.avs
+$ webvsc info pillow_fight.avs
 
 File: dynamic duo - pillow fight.avs
 
