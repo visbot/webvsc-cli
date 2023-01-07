@@ -36,6 +36,7 @@
 		"dev": "npm run start",
 		"lint": "eslint ./src --ignore-path .gitignore",
 		"prepack": "npm run build",
+		"prepare": "husky install",
 		"start": "rollup --watch --config",
 		"test": "npm run lint"
 	},
