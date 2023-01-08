@@ -10,7 +10,7 @@
 	"homepage": "https://github.com/idleberg/webvsc-cli#readme",
 	"type": "module",
 	"bin": {
-		"webvsc": "./index.mjs"
+		"webvsc": "./bin/cli.mjs"
 	},
 	"files": [
 		"bin",
