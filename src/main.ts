@@ -1,7 +1,7 @@
 import { program } from 'commander';
 import * as actions from './actions';
 
-(function () {
+export function main() {
 	program
 		.command('convert <file...>')
 		.description('convert presets to JSON format')
@@ -19,4 +19,4 @@ import * as actions from './actions';
 		.action(actions.info);
 
 	program.parse();
-})();
+}
