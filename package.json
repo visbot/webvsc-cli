@@ -1,6 +1,6 @@
 {
 	"name": "@visbot/webvsc-cli",
-	"version": "0.7.1",
+	"version": "0.7.2",
 	"description": "CLI tool to batch-convert Winamp AVS presets into Webvs JSON",
 	"license": "MIT",
 	"contributors": [
