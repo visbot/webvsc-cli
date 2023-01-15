@@ -8,7 +8,8 @@ import prettyBytes from 'pretty-bytes';
 
 const defaultOptions = {
 	indent: 2,
-	debug: false
+	debug: false,
+	summary: false
 }
 
 async function convertFile(avsFile: string, options = defaultOptions) {
@@ -49,6 +50,16 @@ export async function convert(inputFiles, options = defaultOptions) {
 }
 
 export async function info(inputFiles, options = defaultOptions) {
+	const summary = {
+		assets: [],
+		effects: {
+			builtin: [],
+			plugin: []
+		},
+		fonts: [],
+		presets: []
+	};
+
 	for (const avsFile of inputFiles.sort()) {
 		let webvs;
 
@@ -75,23 +86,70 @@ export async function info(inputFiles, options = defaultOptions) {
 		const assets = Utils.getImageAssets(webvs.components);
 		const fonts = Utils.getFontAssets(webvs.components);
 
-		console.log(/* let it breathe */);
-		console.log(`File: ${colors.green(avsFile)}`);
-		console.log(/* let it breathe */);
+		if (options.summary) {
+			if (effects.builtin?.length) {
+				for (const builtin of effects.builtin.sort()) {
+					if (!summary.effects.builtin.includes(builtin)) {
+						summary.effects.builtin.push(builtin);
+					}
+				}
+			}
 
-		console.log(`Size: ${colors.blue(prettyBytes(stat.size))}`);
-		console.log(`Modified: ${colors.blue(new Date(stat.mtime).toUTCString())}`);
-		console.log(`SHA-256: ${colors.blue(await Utils.hashFile(avsFile))}`);
+			if (effects.plugin?.length) {
+				for (const plugin of effects.plugin.sort()) {
+					if (!summary.effects.plugin.includes(plugin)) {
+						summary.effects.plugin.push(plugin);
+					}
+				}
+			}
 
-		Utils.printSummary('Effects', effects.builtin);
-		Utils.printSummary('APEs', effects.plugin);
-		Utils.printSummary('Images', assets);
-		Utils.printSummary('Fonts', fonts);
+			if (assets?.length) {
+				for (const asset of assets.sort()) {
+					if (!summary.assets.includes(asset)) {
+						summary.assets.push(asset);
+					}
+				}
+			}
 
-		if (inputFiles.length > 1) {
+			if (fonts?.length) {
+				for (const font of fonts.sort()) {
+					if (!summary.fonts.includes(font)) {
+						summary.fonts.push(font);
+					}
+				}
+			}
+
+
+			if (avsFile && !summary.presets.includes(avsFile)) {
+				summary.presets.push(avsFile);
+			}
+		} else {
 			console.log(/* let it breathe */);
-			console.log('─'.repeat(80))
+			console.log(`File: ${colors.green(avsFile)}`);
+			console.log(/* let it breathe */);
+
+			console.log(`Size: ${colors.blue(prettyBytes(stat.size))}`);
+			console.log(`Modified: ${colors.blue(new Date(stat.mtime).toUTCString())}`);
+			console.log(`SHA-256: ${colors.blue(await Utils.hashFile(avsFile))}`);
+
+			Utils.printSummary('Effects', effects.builtin);
+			Utils.printSummary('APEs', effects.plugin);
+			Utils.printSummary('Images', assets);
+			Utils.printSummary('Fonts', fonts);
+
+			if (inputFiles.length > 1) {
+				console.log(/* let it breathe */);
+				console.log('─'.repeat(80))
+			}
 		}
+	}
+
+	if (options.summary) {
+		Utils.printSummary('Presets', summary.presets.sort());
+		Utils.printSummary('Effects', summary.effects.builtin.sort());
+		Utils.printSummary('APEs', summary.effects.plugin.sort());
+		Utils.printSummary('Images', summary.assets.sort());
+		Utils.printSummary('Fonts', summary.fonts.sort());
 	}
 }
 
