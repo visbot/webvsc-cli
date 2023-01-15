@@ -56,8 +56,7 @@ export async function info(inputFiles, options = defaultOptions) {
 			builtin: [],
 			plugin: []
 		},
-		fonts: [],
-		presets: []
+		fonts: []
 	};
 
 	for (const avsFile of inputFiles.sort()) {
@@ -88,40 +87,19 @@ export async function info(inputFiles, options = defaultOptions) {
 
 		if (options.summary) {
 			if (effects.builtin?.length) {
-				for (const builtin of effects.builtin.sort()) {
-					if (!summary.effects.builtin.includes(builtin)) {
-						summary.effects.builtin.push(builtin);
-					}
-				}
+				summary.effects.builtin.push(...effects.builtin.sort());
 			}
 
 			if (effects.plugin?.length) {
-				for (const plugin of effects.plugin.sort()) {
-					if (!summary.effects.plugin.includes(plugin)) {
-						summary.effects.plugin.push(plugin);
-					}
-				}
+				summary.effects.plugin.push(...effects.plugin.sort());
 			}
 
 			if (assets?.length) {
-				for (const asset of assets.sort()) {
-					if (!summary.assets.includes(asset)) {
-						summary.assets.push(asset);
-					}
-				}
+				summary.assets.push(...assets.sort());
 			}
 
 			if (fonts?.length) {
-				for (const font of fonts.sort()) {
-					if (!summary.fonts.includes(font)) {
-						summary.fonts.push(font);
-					}
-				}
-			}
-
-
-			if (avsFile && !summary.presets.includes(avsFile)) {
-				summary.presets.push(avsFile);
+				summary.fonts.push(...fonts.sort());
 			}
 		} else {
 			console.log(/* let it breathe */);
@@ -145,7 +123,6 @@ export async function info(inputFiles, options = defaultOptions) {
 	}
 
 	if (options.summary) {
-		Utils.printSummary('Presets', summary.presets.sort());
 		Utils.printSummary('Effects', summary.effects.builtin.sort());
 		Utils.printSummary('APEs', summary.effects.plugin.sort());
 		Utils.printSummary('Images', summary.assets.sort());
