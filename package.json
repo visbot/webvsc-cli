@@ -12,6 +12,7 @@
 	"bin": {
 		"webvsc": "./index.mjs"
 	},
+	"types": "./bin",
 	"files": [
 		"bin",
 		"LICENSE",
@@ -32,12 +33,12 @@
 		"winamp"
 	],
 	"scripts": {
-		"build": "rollup --config",
+		"build": "tsup src/cli.ts --format esm --target esnext --dts --out-dir ./bin",
 		"dev": "npm run start",
 		"lint": "eslint ./src --ignore-path .gitignore",
 		"prepack": "npm run build",
 		"prepare": "husky install",
-		"start": "rollup --watch --config",
+		"start": "npm run build -- --watch",
 		"test": "npm run lint"
 	},
 	"dependencies": {
@@ -51,17 +52,13 @@
 		"table": "^6.8.1"
 	},
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^25.0.4",
-		"@rollup/plugin-json": "^6.0.0",
-		"@rollup/plugin-node-resolve": "^15.2.1",
-		"@rollup/plugin-typescript": "^11.1.4",
 		"@types/node": "^18.11.18",
 		"@typescript-eslint/eslint-plugin": "^6.7.4",
 		"@typescript-eslint/parser": "^6.7.4",
 		"eslint": "^8.50.0",
 		"eslint-plugin-json": "^3.1.0",
 		"husky": "^8.0.3",
-		"rollup": "^3.29.4",
+		"tsup": "^7.2.0",
 		"typescript": "^5.2.2"
 	},
 	"lint-staged": {
