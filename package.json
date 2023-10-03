@@ -9,15 +9,18 @@
 	],
 	"homepage": "https://github.com/idleberg/webvsc-cli#readme",
 	"type": "module",
+	"types": "./bin",
 	"bin": {
 		"webvsc": "./index.mjs"
 	},
-	"types": "./bin",
 	"files": [
 		"bin",
 		"LICENSE",
 		"README.md"
 	],
+	"engines": {
+		"node": ">=16"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/idleberg/webvsc-cli.git"
@@ -43,7 +46,7 @@
 	},
 	"dependencies": {
 		"@visbot/webvsc": "3.0.0-alpha",
-		"commander": "^9.4.1",
+		"commander": "^11.0.0",
 		"globby": "^13.2.2",
 		"graceful-fs": "^4.2.11",
 		"log-symbols": "^5.1.0",
