@@ -28,6 +28,11 @@ const pluginEffects = [
 	'VideoDelay'
 ];
 
+const formatter = new Intl.NumberFormat('en-US', {
+	minimumFractionDigits: 1,
+	maximumFractionDigits: 4
+});
+
 export function isAPE(type: string) {
 	return pluginEffects.includes(type);
 }
@@ -116,7 +121,7 @@ export function printSummary(label: string, items: string[]) {
 	}
 }
 
-async function hashStream(stream: NodeJS.ReadableStream): Promise<string> {
+async function hashStream(stream: NodeJS.ReadableStream, hash = 'sha256'): Promise<string> {
 	const hashingFunction = createHash('sha256');
 
 	return new Promise((resolve, reject) => {
@@ -127,8 +132,25 @@ async function hashStream(stream: NodeJS.ReadableStream): Promise<string> {
 	});
 }
 
-export async function hashFile(inputFile: string): Promise<string> {
+export async function hashFile(inputFile: string, hash = 'sha256'): Promise<string> {
 	await fs.access(inputFile);
 
-	return await hashStream(createReadStream(inputFile));
+	return await hashStream(createReadStream(inputFile), hash);
+}
+
+export function mapTypes(components, key = 'type') {
+	return components.map(i => {
+		if (i.type === 'EffectList') {
+			return mapTypes(i.components, key);
+		}
+
+		return i[key];
+	});
+}
+
+export function formatDuration(start) {
+	const end = performance.now();
+	const duration = formatter.format((end - start));
+
+	return colors.dim(`${duration}ms`);
 }
