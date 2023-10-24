@@ -1,7 +1,7 @@
 import { program } from 'commander';
 import * as actions from './actions';
 
-export function main() {
+(function () {
 	program
 		.command('convert <file...>')
 		.description('convert presets to JSON format')
@@ -10,15 +10,13 @@ export function main() {
 		.option('-i, --indent <n>', 'specify default indentation JSON', i => parseInt(i, 10), 2)
 		.option('-q, --quiet', 'print errors only')
 		.option('-H, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
-		.option('-w, --watch', 'only convert changed files')
 		.action(actions.convert);
 
-	program
+		program
 		.command('info <file...>')
 		.description('show info about AVS presets')
 		.option('-d, --debug', 'print additional debug information')
-		.option('-s, --summary', 'print summary of multiple presets', false)
 		.action(actions.info);
 
 	program.parse();
-}
+})();

@@ -13,7 +13,7 @@ CLI tool to batch-convert [Winamp AVS presets](https://www.wikiwand.com/en/Advan
 Use your preferred [Node](https://nodejs.org) package manager to install the CLI globally
 
 ```sh
-$ npm install --global @visbot/webvsc-cli
+$ yarn global add @visbot/webvsc-cli || npm install --global @visbot/webvsc-cli
 ```
 
 ## Usage
@@ -40,48 +40,24 @@ Refer to the help for each sub-command to list its options.
 
 #### `convert`
 
-Converts presets to Webvs JSON format, support globs
+Converts prests to Webvs JSON format, support globs
 
 **Example:**
 
 ```sh
-$ webvsc convert ./**/*.avs
+webvs convert ./**/*.avs
 ```
 
 
 
-#### `info`
+#### `convert`
 
-Show info about AVS presets
+Converts prests to Webvs JSON format, support globs
 
 **Example:**
 
 ```sh
-$ webvsc info pillow_fight.avs
-
-File: dynamic duo - pillow fight.avs
-
-Size: 5.22 kB
-Modified: Sun, 04 Jan 2009 23:31:22 GMT
-SHA-256: 3c8bc2778a433cd27d46e069b35412e954226be8beb358e867b28570285eea14
-
-  Effects
-  - BufferSave (1)
-  - ColorClip (1)
-  - Comment (1)
-  - EffectList (1)
-  - Invert (1)
-  - Movement (1)
-
-  APEs
-  - ColorMap (1)
-  - ConvolutionFilter (1)
-  - TexerII (3)
-
-  Images
-  - avsres_texer_square_sharp_16x16.bmp (1)
-  - avsres_texer_square_sharp_24x24.bmp (1)
-  - avsres_texer_square_sharp_30x30.bmp (1)
+webvs convert ./**/*.avs
 ```
 
 ### Troubleshooting
