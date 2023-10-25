@@ -45,7 +45,7 @@ Converts presets to Webvs JSON format
 **Example:**
 
 ```sh
-webvs convert ./Plugins/avs/**/*.avs
+$ webvs convert ./Plugins/avs/**/*.avs
 ```
 
 #### `info`
@@ -55,8 +55,8 @@ Show list of effects and assets used by a preset
 **Example:**
 
 ```sh
-webvs info example.avs
-webvs info ./Plugins/avs/**/*.avs --summary
+$ webvs info example.avs
+$ webvs info ./Plugins/avs/**/*.avs --summary
 ```
 
 ### Troubleshooting
