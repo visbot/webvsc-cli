@@ -40,24 +40,23 @@ Refer to the help for each sub-command to list its options.
 
 #### `convert`
 
-Converts prests to Webvs JSON format, support globs
+Converts presets to Webvs JSON format
 
 **Example:**
 
 ```sh
-webvs convert ./**/*.avs
+webvs convert ./Plugins/avs/**/*.avs
 ```
 
+#### `info`
 
-
-#### `convert`
-
-Converts prests to Webvs JSON format, support globs
+Show list of effects and assets used by a preset
 
 **Example:**
 
 ```sh
-webvs convert ./**/*.avs
+webvs info example.avs
+webvs info ./Plugins/avs/**/*.avs --summary
 ```
 
 ### Troubleshooting
