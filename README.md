@@ -1,8 +1,8 @@
 # webvsc-cli
 
-[![npm](https://flat.badgen.net/npm/license/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![npm](https://flat.badgen.net/npm/v/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![CI](https://img.shields.io/github/actions/workflow/status/idleberg/webvsc-cli/default.yml?style=flat-square)](https://github.com/idleberg/webvsc-cli/actions)
+[![License](https://img.shields.io/github/license/idleberg/webvsc-cli?color=blue&style=for-the-badge)](https://github.com/idleberg/webvsc-cli/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/@visbot/webvsc-cli?style=for-the-badge)](https://www.npmjs.org/package/@visbot/webvsc-cli)
+[![Build](https://img.shields.io/github/actions/workflow/status/idleberg/webvsc-cli/default.yml?style=for-the-badge)](https://github.com/idleberg/webvsc-cli/actions)
 
 ## Description
 
