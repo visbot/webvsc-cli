@@ -38,37 +38,37 @@ jobs:
         with:
           fetch-depth: 1
 
-      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+      - uses: 'actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65' # v4.0.0
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
-        name: Install pnpm
-        id: pnpm-install
+      - uses: 'pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598' # v2.4.0
+        name: 'Install pnpm'
+        id: 'pnpm-install'
         with:
           version: 7
           run_install: false
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
+      - name: 'Get pnpm store directory'
+        id: 'pnpm-cache'
         run: |
           echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - name: 'Setup pnpm cache'
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3.3.2
+        uses: 'actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84' # v3.3.2
         with:
           path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
+      - name: 'Install dependencies'
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
-      - name: Lint Source
+      - name: 'Lint Source'
         run: pnpm run --if-present lint
 
-      - name: Build Source
+      - name: 'Build Source'
         run: pnpm run --if-present build
 
       - name: 'Run Tests'
