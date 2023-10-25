@@ -13,7 +13,7 @@ CLI tool to batch-convert [Winamp AVS presets](https://www.wikiwand.com/en/Advan
 Use your preferred [Node](https://nodejs.org) package manager to install the CLI globally
 
 ```sh
-$ yarn global add @visbot/webvsc-cli || npm install --global @visbot/webvsc-cli
+$ npm install --global @visbot/webvsc-cli
 ```
 
 ## Usage
