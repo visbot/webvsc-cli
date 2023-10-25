@@ -10,7 +10,7 @@
   "homepage": "https://github.com/idleberg/webvsc-cli#readme",
   "type": "module",
   "bin": {
-    "webvsc": "./index.mjs"
+    "webvsc": "./webvsc.mjs"
   },
   "files": [
     "bin",
@@ -33,34 +33,32 @@
   ],
   "dependencies": {
     "@visbot/webvsc": "github:grandchild/AVS-File-Decoder#main",
+    "chokidar": "^3.5.3",
     "commander": "^9.4.1",
     "globby": "^13.1.3",
     "graceful-fs": "^4.2.10",
     "log-symbols": "^5.1.0",
     "picocolors": "^1.0.0",
-    "pretty-bytes": "^6.0.0",
-    "table": "^6.8.1"
+    "pretty-bytes": "^6.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.0",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-typescript": "^10.0.1",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
     "eslint": "^8.31.0",
     "eslint-plugin-json": "^3.1.0",
     "husky": "^8.0.3",
-    "rollup": "^3.9.1",
     "tslint": "^5.20.1",
+    "tsup": "^7.2.0",
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "build": "rollup --config",
+    "build": "tsup src/cli.ts --format esm --target esnext --dts --out-dir bin",
     "dev": "npm run start",
-		"lint": "eslint ./src --ignore-path .gitignore",
-    "start": "rollup --watch --config"
+    "lint": "eslint ./src --ignore-path .gitignore",
+    "prepack": "npm run build",
+    "prepare": "husky install",
+    "start": "npm run build -- --watch"
   },
   "lint-staged": {
     "*.(json|ts)": "eslint --cache --fix"
