@@ -1,5 +1,6 @@
 import { program } from 'commander';
 import { convert } from './actions/convert';
+import { diff } from './actions/diff';
 import { info } from './actions/info';
 
 export function main() {
@@ -20,6 +21,12 @@ export function main() {
 		.option('-d, --debug', 'print additional debug information')
 		.option('-s, --summary', 'print summary of multiple presets', false)
 		.action(info);
+
+	program
+		.command('diff <source> <target>')
+		.description('approximates similarity between two AVS presets')
+		.option('-d, --debug', 'print additional debug information')
+		.action(diff);
 
 	program.parse();
 }
