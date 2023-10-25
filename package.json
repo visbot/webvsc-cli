@@ -15,7 +15,8 @@
   "files": [
     "bin",
     "LICENSE",
-    "README.md"
+    "README.md",
+		"webvsc.mjs"
   ],
   "repository": {
     "type": "git",
