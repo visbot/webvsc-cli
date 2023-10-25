@@ -33,14 +33,14 @@ export async function convert(inputFiles, options = defaultOptions) {
 		console.log(/* let it breathe */);
 		console.time('✨ Completed');
 
-		__convert(inputFiles, options);
+		await __convert(inputFiles, options);
 
 		console.log(/* let it breathe */);
 		console.timeEnd('✨ Completed');
 	}
 }
 
-async function __watch(inputFiles, options = defaultOptions) {
+function __watch(inputFiles, options = defaultOptions) {
 	console.log(/* let it breathe */);
 	console.log('👓 Watching for changes...');
 	console.log(/* let it breathe */);
@@ -60,7 +60,7 @@ async function __watch(inputFiles, options = defaultOptions) {
 			return;
 		}
 
-		__convert(inputFile, options);
+		await __convert(inputFile, options);
 
 		dictionary[inputFile] = hash;
 	});
