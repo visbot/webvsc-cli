@@ -1,8 +1,29 @@
-name: CI
+name: 'CI'
 
 on:
-- push
-- pull_request
+  push:
+    branches:
+    - 'main'
+    paths:
+    - '.github/**'
+    - '.eslintrc.cjs'
+    - 'bun.lockb'
+    - 'package.json'
+    - 'src/**'
+    - 'tests/**'
+    - 'webvsc.mjs'
+  pull_request:
+    branches:
+    - 'main'
+    paths:
+    - '.github/**'
+    - '.eslintrc.cjs'
+    - 'bun.lockb'
+    - 'package.json'
+    - 'src/**'
+    - 'tests/**'
+    - 'webvsc.mjs'
+  workflow_dispatch:
 
 jobs:
   default:
@@ -10,26 +31,26 @@ jobs:
     strategy:
       matrix:
         node-version: ['lts/*', '*']
-        os: [ubuntu-latest]
+        os: ['ubuntu-latest']
 
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: 'actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744' # v3.6.0
         with:
           fetch-depth: 1
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@a1800f471a0bc25cddac36bb13e6f436ddf341d7 # v1
+      - name: 'Setup Bun'
+        uses: 'oven-sh/setup-bun@a1800f471a0bc25cddac36bb13e6f436ddf341d7' # v1
         with:
-          bun-version: latest
+          bun-version: 'latest'
 
-      - name: Install dependencies
+      - name: 'Install dependencies'
         run: bun install --frozen-lockfile
 
-      - name: Lint Source
+      - name: 'Lint Source'
         run: bun run --if-present lint
 
-      - name: Build Source
+      - name: 'Build Source'
         run: bun run --if-present build
 
-      - name: Run Tests
+      - name: 'Run Tests'
         run: bun run --if-present test
