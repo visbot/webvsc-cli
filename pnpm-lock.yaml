@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@visbot/webvsc':
-    specifier: github:grandchild/AVS-File-Decoder#main
-    version: github.com/grandchild/AVS-File-Decoder/adcc0eac2451d5506eed7f4891fe545b07330994
+    specifier: 3.0.0-alpha
+    version: 3.0.0-alpha
   chokidar:
     specifier: ^3.5.3
     version: 3.5.3
@@ -505,6 +505,13 @@ packages:
       '@typescript-eslint/types': 5.48.0
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@visbot/webvsc@3.0.0-alpha:
+    resolution: {integrity: sha512-3rHoD36InFFSUbEp3csP1RyChTaY73Txnoi4ucq8hRvwH9EiNCxoAZm6CoG4va+CJylxS6pMWTLqEMRZCkFzkA==}
+    engines: {node: '>=14.16'}
+    dependencies:
+      log-symbols: 5.1.0
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.8.1):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1834,13 +1841,3 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
-
-  github.com/grandchild/AVS-File-Decoder/adcc0eac2451d5506eed7f4891fe545b07330994:
-    resolution: {tarball: https://codeload.github.com/grandchild/AVS-File-Decoder/tar.gz/adcc0eac2451d5506eed7f4891fe545b07330994}
-    name: '@visbot/webvsc'
-    version: 3.0.0-alpha
-    engines: {node: '>=14.16'}
-    requiresBuild: true
-    dependencies:
-      log-symbols: 5.1.0
-    dev: false
