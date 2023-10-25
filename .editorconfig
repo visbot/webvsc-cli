@@ -19,7 +19,3 @@ block_comment_end = */
 
 [*.{markdown,md}]
 trim_trailing_whitespace = false
-
-[*.nlf]
-insert_final_newline = false
-trim_trailing_whitespace = false
