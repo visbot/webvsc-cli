@@ -1,8 +1,8 @@
 # webvsc-cli
 
-[![npm](https://flat.badgen.net/npm/license/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![npm](https://flat.badgen.net/npm/v/@visbot/webvsc-cli)](https://www.npmjs.com/package/@visbot/webvsc-cli)
-[![CI](https://img.shields.io/github/actions/workflow/status/idleberg/webvsc-cli/default.yml?style=flat-square)](https://github.com/idleberg/webvsc-cli/actions)
+[![License](https://img.shields.io/github/license/idleberg/webvsc-cli?color=blue&style=for-the-badge)](https://github.com/idleberg/webvsc-cli/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/@visbot/webvsc-cli?style=for-the-badge)](https://www.npmjs.org/package/@visbot/webvsc-cli)
+[![Build](https://img.shields.io/github/actions/workflow/status/idleberg/webvsc-cli/default.yml?style=for-the-badge)](https://github.com/idleberg/webvsc-cli/actions)
 
 ## Description
 
@@ -13,7 +13,7 @@ CLI tool to batch-convert [Winamp AVS presets](https://www.wikiwand.com/en/Advan
 Use your preferred [Node](https://nodejs.org) package manager to install the CLI globally
 
 ```sh
-$ yarn global add @visbot/webvsc-cli || npm install --global @visbot/webvsc-cli
+$ npm install --global @visbot/webvsc-cli
 ```
 
 ## Usage
@@ -45,7 +45,7 @@ Converts presets to Webvs JSON format
 **Example:**
 
 ```sh
-webvs convert ./Plugins/avs/**/*.avs
+$ webvs convert ./Plugins/avs/**/*.avs
 ```
 
 #### `info`
@@ -55,8 +55,8 @@ Show list of effects and assets used by a preset
 **Example:**
 
 ```sh
-webvs info example.avs
-webvs info ./Plugins/avs/**/*.avs --summary
+$ webvs info example.avs
+$ webvs info ./Plugins/avs/**/*.avs --summary
 ```
 
 ### Troubleshooting
