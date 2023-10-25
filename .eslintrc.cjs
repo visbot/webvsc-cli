@@ -16,5 +16,8 @@ module.exports = {
         'json/*': ['error', 'allowComments']
       }
     }
-  ]
+  ],
+	rules: {
+		'@typescript-eslint/ban-ts-comment': 'warn'
+	}
 };
