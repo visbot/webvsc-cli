@@ -13,20 +13,32 @@ export function main() {
 		.option('-q, --quiet', 'print errors only')
 		.option('-H, --no-hidden', 'don\'t extract hidden strings from fixed-size strings')
 		.option('-w, --watch', 'only convert changed files')
-		.action(convert);
+		.action(async (args, options) => {
+			const { convert} = await import('./actions/convert');
+
+			await convert(args, options)
+		});
 
 	program
 		.command('info <file...>')
 		.description('show info about AVS presets, supports glob patterns')
 		.option('-d, --debug', 'print additional debug information')
 		.option('-s, --summary', 'print summary of multiple presets', false)
-		.action(info);
+		.action(async (args, options) => {
+			const { info } = await import('./actions/info');
+
+			await info(args, options)
+		});
 
 	program
 		.command('diff <source> <target>')
 		.description('approximates similarity between two AVS presets')
 		.option('-d, --debug', 'print additional debug information')
-		.action(diff);
+		.action(async (args, options) => {
+			const { diff } = await import('./actions/diff');
+
+			diff(args, options)
+		});
 
 	program.parse();
 }
