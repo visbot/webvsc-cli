@@ -112,11 +112,11 @@ export function printSummary(label: string, items: string[]) {
 
 	if (uniqueItems.length) {
 		console.log(/* let it breathe */);
-		console.log(`  ${label}`);
+		console.log(`${label}:`);
 
 		for (const item of uniqueItems.sort()) {
 			const occurences = items.filter(i => i === item).length;
-			console.log(`  - ${colors.cyan(item)} ${colors.dim('(' + occurences + ')')}`);
+			console.log(`- ${colors.cyan(item)} ${colors.dim('(' + occurences + ')')}`);
 		}
 	}
 }
