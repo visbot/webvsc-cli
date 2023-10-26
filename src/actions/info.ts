@@ -44,38 +44,30 @@ export async function info(inputFiles, options = defaultOptions) {
 		if (options.summary) {
 			if (effects.builtin?.length) {
 				for (const builtin of effects.builtin.sort()) {
-					if (!summary.effects.builtin.includes(builtin)) {
-						summary.effects.builtin.push(builtin);
-					}
+					summary.effects.builtin.push(builtin);
 				}
 			}
 
 			if (effects.plugin?.length) {
 				for (const plugin of effects.plugin.sort()) {
-					if (!summary.effects.plugin.includes(plugin)) {
-						summary.effects.plugin.push(plugin);
-					}
+					summary.effects.plugin.push(plugin);
 				}
 			}
 
 			if (assets?.length) {
 				for (const asset of assets.sort()) {
-					if (!summary.assets.includes(asset)) {
-						summary.assets.push(asset);
-					}
+					summary.assets.push(asset);
 				}
 			}
 
 			if (fonts?.length) {
 				for (const font of fonts.sort()) {
-					if (!summary.fonts.includes(font)) {
-						summary.fonts.push(font);
-					}
+					summary.fonts.push(font);
 				}
 			}
 
 
-			if (avsFile && !summary.presets.includes(avsFile)) {
+			if (avsFile) {
 				summary.presets.push(avsFile);
 			}
 		} else {
@@ -100,6 +92,7 @@ export async function info(inputFiles, options = defaultOptions) {
 	}
 
 	if (options.summary) {
+		// console.log('SUMMARY', summary.effects)
 		Utils.printSummary('Presets', summary.presets.sort());
 		Utils.printSummary('Effects', summary.effects.builtin.sort());
 		Utils.printSummary('APEs', summary.effects.plugin.sort());
