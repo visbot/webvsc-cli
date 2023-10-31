@@ -3,17 +3,20 @@ import { convertPreset } from '@visbot/webvsc';
 import { basename } from "node:path";
 import { readFile, stat } from 'node:fs/promises';
 
-type Options = {
-	indent: number,
-	debug: boolean,
-	summary: boolean,
-	watch: boolean
+export type Options = {
+	indent?: number,
+	debug?: boolean,
+	details?: boolean,
+	quiet?: boolean,
+	summary?: false
+	watch?: boolean,
 }
 
 export const defaultOptions: Options = {
 	indent: 2,
 	debug: false,
-	summary: false,
+	details: false,
+	quiet: false,
 	watch: false
 }
 

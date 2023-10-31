@@ -10,20 +10,26 @@ export async function convert(inputFiles, options = defaultOptions) {
 	if (options.watch) {
 		__watch(inputFiles, options);
 	} else {
-		console.log(/* let it breathe */);
-		console.time('✨ Completed');
+		if (!options.quiet) {
+			console.log(/* let it breathe */);
+			console.time('✨ Completed');
+		}
 
 		await __convert(inputFiles, options);
 
-		console.log(/* let it breathe */);
-		console.timeEnd('✨ Completed');
+		if (!options.quiet) {
+			console.log(/* let it breathe */);
+			console.timeEnd('✨ Completed');
+		}
 	}
 }
 
 function __watch(inputFiles, options = defaultOptions) {
-	console.log(/* let it breathe */);
-	console.log('👓 Watching for changes...');
-	console.log(/* let it breathe */);
+	if (!options.quiet) {
+		console.log(/* let it breathe */);
+		console.log('👓 Watching for changes...');
+		console.log(/* let it breathe */);
+	}
 
 	const watcher = watch(inputFiles, {
 		awaitWriteFinish: {
@@ -55,7 +61,9 @@ async function __convert(inputFiles, options = defaultOptions) {
 		const presetExtension = extname(avsFile);
 
 		if (!['.avs', '.wvs'].includes(presetExtension)) {
-			console.warn(logSymbols.warning, `Skipping conversion ${colors.cyan(avsFile)}`);
+			if (!options.quiet) {
+				console.warn(logSymbols.warning, `Skipping conversion ${colors.cyan(avsFile)}`);
+			}
 			return;
 		}
 
@@ -66,7 +74,9 @@ async function __convert(inputFiles, options = defaultOptions) {
 			const webvs = await convertFile(avsFile, options);
 			await writeFile(`${presetName}.webvs`, JSON.stringify(webvs, null, options.indent), 'utf-8');
 
-			console.log(logSymbols.success, `Converted ${colors.cyan(`${presetName}.avs`)} ${Utils.formatDuration(start)}`);
+			if (!options.quiet) {
+				console.log(logSymbols.success, `Converted ${colors.cyan(`${presetName}.avs`)} ${Utils.formatDuration(start)}`);
+			}
 		} catch (err) {
 			console.error(logSymbols.error, `Converted ${colors.cyan(`${presetName}.avs`)} ${Utils.formatDuration(start)}`);
 
