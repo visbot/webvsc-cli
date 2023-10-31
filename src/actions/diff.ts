@@ -1,106 +1,122 @@
-import { convertFile, defaultOptions } from './shared';
+import { convertFile } from './shared';
+import { diffChars } from 'diff';
 import * as Utils from '../utils';
+import colors from 'picocolors';
 import leven from 'leven';
-import Seq from 'seqalign';
+import { basename } from 'node:path';
+import { stat } from 'node:fs/promises';
+import prettyBytes from 'pretty-bytes';
 
-const nw = Seq.NWaligner();
-const sw = Seq.SWaligner();
-
-export async function diff(sourceFile, targetFile, options = defaultOptions) {
-
-	console.log();
-	let sourceJSON = await convertFile(sourceFile, options);
-
-	delete sourceJSON.name;
-	delete sourceJSON.date;
-	sourceJSON = JSON.stringify(sourceJSON).replaceAll(':true', ':1').replaceAll(':false', ':0');
-
-	let targetJSON = await convertFile(targetFile, options);
-	delete targetJSON.name;
-	delete targetJSON.date;
-	targetJSON = JSON.stringify(targetJSON).replaceAll(':true', ':1').replaceAll(':false', ':0');
-
-	let averageLength = (sourceJSON.length + targetJSON.length) / 2;
-	let lDistance = leven(sourceJSON, targetJSON);
-	let difference = averageLength * (lDistance / 100);
-
-	console.log('Raw file:', {
-		source: {
-			contents: sourceJSON,
-			length: sourceJSON.length
-		},
-		target: {
-			contents: targetJSON,
-			length: targetJSON.length
-		},
-		averageLength: (sourceJSON.length + targetJSON.length) / 2,
-		distance: lDistance,
-		difference,
-		// aligner: {
-		// 	smithWaterman: sw.align(sourceJSON, targetJSON),
-		// 	needlemanWunsch: nw.align(sourceJSON, targetJSON)
-		// }
-	});
-
-	console.log();
-
-	const sourceStructure = await getStructure(sourceFile, options);
-	const targetStructure = await getStructure(targetFile, options);
-	averageLength = (sourceStructure.length + targetStructure.length) / 2;
-	lDistance = leven(sourceStructure, targetStructure);
-
-	difference = averageLength * (lDistance / 100);
-
-	console.log('Effect structure:', {
-		source: {
-			contents: sourceStructure,
-			length: sourceStructure.length
-		},
-		target: {
-			contents: targetStructure,
-			length: targetStructure.length
-		},
-		averageLength,
-		distance: lDistance,
-		difference,
-		aligner: {
-			smithWaterman: sw.align(sourceStructure, targetStructure),
-			needlemanWunsch: nw.align(sourceStructure, targetStructure)
-		}
-	});
-
-	console.log();
-
-	const sourceGroupStructure = await getStructure(sourceFile, options, 'group');
-	const targetGroupStructure = await getStructure(targetFile, options, 'group');
-	averageLength = (sourceGroupStructure.length + targetGroupStructure.length) / 2;
-	lDistance = leven(sourceGroupStructure, targetGroupStructure);
-	difference = averageLength * (lDistance / 100);
-
-	console.log('Group structure:', {
-		source: {
-			contents: sourceGroupStructure,
-			length: sourceGroupStructure.length
-		},
-		target: {
-			contents: targetGroupStructure,
-			length: targetGroupStructure.length
-		},
-		averageLength,
-		distance: lDistance,
-		difference: difference,
-		aligner: {
-			smithWaterman: sw.align(sourceGroupStructure, targetGroupStructure),
-			needlemanWunsch: nw.align(sourceGroupStructure, targetGroupStructure)
-		}
-	});
+type Options = {
+	debug: boolean,
+	details: boolean
 }
 
+export const defaultOptions: Options = {
+	debug: false,
+	details: false
+}
 
+export async function diff(sourceFile, targetFile, options = defaultOptions) {
+	if (options.debug) {
+		console.log({
+			sourceFile,
+			targetFile,
+			options
+		});
+	}
 
-async function getStructure(avsFile, options, group = 'type') {
-	const webvs = await convertFile(avsFile, options);
-	const structure = Utils.mapTypes(webvs.components, group);
+	const sourcePreset = await convertFile(sourceFile, options);
+	const targetPreset = await convertFile(targetFile, options);
+
+	const normalizedSource = Utils.normalizePreset(sourcePreset);
+	const normalizedTarget = Utils.normalizePreset(targetPreset);
+
+	const sourceEffectStructure = await getStructure(sourcePreset, 'type');
+	const targetEffectStructure = await getStructure(targetPreset, 'type');
+
+	const sourceGroupStructure = await getStructure(sourcePreset, 'group');
+	const targetGroupStructure = await getStructure(targetPreset, 'group');
+
+	const sourceStats = await stat(sourceFile);
+	const targetStats = await stat(targetFile);
+
+	console.log(/* let it breathe */);
+	console.log(`File #1: ${colors.green(basename(sourceFile))}`);
+	if (options.details) {
+		console.log(`- Size: ${colors.blue(prettyBytes(sourceStats.size))}`);
+		console.log(`- Modified: ${colors.blue(new Date(sourceStats.mtime).toUTCString())}`);
+
+		console.log(/* let it breathe */);
+	}
+
+	console.log(`File #2: ${colors.green(basename(targetFile))}`);
+	if (options.details) {
+		console.log(`- Size: ${colors.blue(prettyBytes(targetStats.size))}`);
+		console.log(`- Modified: ${colors.blue(new Date(targetStats.mtime).toUTCString())}`);
+	}
+
+	printDistance('Preset', normalizedSource, normalizedTarget, options);
+	if (options.details) {
+		printDiff(sourcePreset, targetPreset);
+	}
+
+	printDistance('Effect Structure', sourceEffectStructure, targetEffectStructure, options);
+	printDiff(sourceEffectStructure, targetEffectStructure);
+
+	printDistance('Effect Group Structure', sourceGroupStructure, targetGroupStructure, options);
+	printDiff(sourceGroupStructure, targetGroupStructure);
+}
+
+function printDistance(label, source, target, options) {
+	const distance = leven(source, target);
+	const averageLength = (source.length + target.length) / 2;
+
+	console.log(/* let it breathe */);
+	console.log(`${label}:`);
+
+	const averageLengthString = [
+		'-',
+		'Average length:',
+		colors.blue(averageLength),
+		options.details ? colors.dim(`(${source.length}, ${target.length})`) : ''
+	];
+
+	const levenshteinDistance = [
+		'-',
+		'Levenshtein distance:',
+		colors.blue(distance),
+		options.details ? colors.dim(`(${distance / averageLength})`) : ''
+	];
+
+	console.log(averageLengthString.join(' '));
+	console.log(levenshteinDistance.join(' '));
+}
+
+function printDiff(source, target) {
+	const sourceJSON = typeof source === 'string' ? source : JSON.stringify(source);
+	const targetJSON = typeof target === 'string' ? target : JSON.stringify(target);
+
+	const difference = diffChars(sourceJSON, targetJSON);
+
+	const output = difference.map(part => {
+		switch (true) {
+			case part.added:
+				return colors.green(part.value);
+
+			case part.removed:
+				return colors.red(part.value);
+
+			default:
+				return colors.dim(part.value);
+		}
+	});
+
+	console.log('- Diff:', output.join(''));
+}
+
+async function getStructure(preset, group) {
+	const structure = Utils.mapTypes(preset.components, group);
 
 	return JSON.stringify(structure);
 }
