@@ -154,3 +154,14 @@ export function formatDuration(start) {
 
 	return colors.dim(`${duration}ms`);
 }
+
+export function normalizePreset(preset) {
+	// strip metadata
+	delete preset.name;
+	delete preset.date;
+
+	return JSON
+		.stringify(preset)
+		.replaceAll(':true', ':1')
+		.replaceAll(':false', ':0');
+}
