@@ -1,10 +1,11 @@
+import { basename } from 'node:path';
 import { convertFile } from './shared';
 import { diffChars } from 'diff';
+import { stat } from 'node:fs/promises';
 import * as Utils from '../utils';
 import colors from 'picocolors';
 import leven from 'leven';
-import { basename } from 'node:path';
-import { stat } from 'node:fs/promises';
+import logSymbols from 'log-symbols';
 import prettyBytes from 'pretty-bytes';
 
 type Options = {
@@ -24,6 +25,11 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 			targetFile,
 			options
 		});
+	}
+
+	if (sourceFile === targetFile) {
+		console.log(/* let it breathe */);
+		console.log (`${logSymbols.warning} The two files are the same`);
 	}
 
 	const sourcePreset = await convertFile(sourceFile, options);
