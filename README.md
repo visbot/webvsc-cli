@@ -73,7 +73,7 @@ Approximates the difference between two presets
 **Example:**
 
 ```sh
-$ webvsc diff preset1.avs preset2.avs -mld
+$ webvsc diff -mld preset1.avs preset2.avs
 ```
 
 :warning: This command requires additional flags to be set, see `webvsc diff --help` for details.
