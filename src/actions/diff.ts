@@ -1,10 +1,8 @@
 import { basename } from 'node:path';
 import { convertFile } from './shared';
 import { diffChars } from 'diff';
-import { stat } from 'node:fs/promises';
 import * as Utils from '../utils';
 import colors from 'picocolors';
-import leven from 'leven';
 import logSymbols from 'log-symbols';
 
 type Options = {
@@ -64,24 +62,25 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 		console.log(`- Modified: ${colors.blue(modified)}`);
 	}
 
-	printDistance('Preset', normalizedSource, normalizedTarget, options);
+	await printDistance('Preset', normalizedSource, normalizedTarget, options);
 	if (options.details) {
 		printDiff(sourcePreset, targetPreset);
 	}
 
-	printDistance('Effect Structure', sourceEffectStructure, targetEffectStructure, options);
+	await printDistance('Effect Structure', sourceEffectStructure, targetEffectStructure, options);
 	printDiff(sourceEffectStructure, targetEffectStructure);
 
-	printDistance('Effect Group Structure', sourceGroupStructure, targetGroupStructure, options);
+	await printDistance('Effect Group Structure', sourceGroupStructure, targetGroupStructure, options);
 	printDiff(sourceGroupStructure, targetGroupStructure);
 }
 
-function printDistance(label, source, target, options) {
-	const distance = leven(source, target);
+async function printDistance(label, source, target, options) {
+	console.log(/* let it breathe */);
+
+	const logMessages = [];
 	const averageLength = (source.length + target.length) / 2;
 
-	console.log(/* let it breathe */);
-	console.log(`${label}:`);
+	logMessages.push(`${label}:`);
 
 	const averageLengthString = [
 		'-',
@@ -90,15 +89,36 @@ function printDistance(label, source, target, options) {
 		options.details ? colors.dim(`(${source.length}/${target.length})`) : ''
 	];
 
-	const levenshteinDistance = [
-		'-',
-		'Levenshtein distance:',
-		colors.blue(distance),
-		options.details ? colors.dim(`(${distance / averageLength})`) : ''
-	];
+	logMessages.push(averageLengthString.join(' '));
 
-	console.log(averageLengthString.join(' '));
-	console.log(levenshteinDistance.join(' '));
+	if (options.levenshtein) {
+		const leven = (await import('leven')).default;
+		const distance = leven(source, target);
+
+		const levenshteinDistance = [
+			'-',
+			'Levenshtein distance:',
+			colors.blue(distance),
+			options.details ? colors.dim(`(${distance / averageLength})`) : ''
+		];
+
+		logMessages.push(levenshteinDistance.join(' '));
+	}
+
+	if (options.needlemanWunsch) {
+		const { NWaligner } = await import('seqalign');
+
+		const aligner = NWaligner();
+
+		const { score, alignment } = aligner.align(source, target);
+		const [ sourceAlignment, targetAlignment ] = alignment.split('\n');
+
+		logMessages.push(`- Needleman-Wunsch score: ${colors.blue(score)}`);
+		logMessages.push(`  - Source: ${colors.dim(sourceAlignment)}`);
+		logMessages.push(`  - Target: ${colors.dim(targetAlignment)}`);
+	}
+
+	logMessages.map(message => console.log(message));
 }
 
 function printDiff(source, target) {
