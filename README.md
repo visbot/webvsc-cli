@@ -51,7 +51,7 @@ Converts presets to Webvs JSON format
 **Example:**
 
 ```sh
-$ webvs convert ./Plugins/avs/**/*.avs
+$ webvsc convert ./Plugins/avs/**/*.avs
 ```
 
 #### `info`
@@ -61,8 +61,8 @@ Show list of effects and assets used by a preset
 **Example:**
 
 ```sh
-$ webvs info example.avs
-$ webvs info ./Plugins/avs/**/*.avs --summary
+$ webvsc info example.avs
+$ webvsc info ./Plugins/avs/**/*.avs --summary
 ```
 
 #### `diff`
@@ -72,7 +72,7 @@ Approximates the difference between two presets
 **Example:**
 
 ```sh
-$ webvs diff preset1.avs preset2.avs -mld
+$ webvsc diff preset1.avs preset2.avs -mld
 ```
 
 :warning: This command requires additional flags to be set, see `webvsc diff --help` for details.
