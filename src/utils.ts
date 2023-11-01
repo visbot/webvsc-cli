@@ -1,6 +1,8 @@
-import { createReadStream, promises as fs } from 'node:fs';
-import colors from 'picocolors';
 import { createHash } from 'node:crypto';
+import { createReadStream, promises as fs } from 'node:fs';
+import { stat } from 'node:fs/promises';
+import colors from 'picocolors';
+import prettyBytes from 'pretty-bytes';
 
 const pluginEffects = [
 	'AddBorders',
@@ -164,4 +166,15 @@ export function normalizePreset(preset) {
 		.stringify(preset)
 		.replaceAll(':true', ':1')
 		.replaceAll(':false', ':0');
+}
+
+export async function getFileInfo(filePath: string)	{
+	const { ctime, mtime, size } = await stat(filePath);
+
+	return {
+		created: new Date(ctime).toUTCString(),
+		modified: new Date(mtime).toUTCString(),
+		hash: await hashFile(filePath),
+		size: prettyBytes(size)
+	}
 }

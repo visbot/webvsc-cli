@@ -36,7 +36,6 @@ export async function info(inputFiles, options = defaultOptions) {
 			continue;
 		}
 
-		const { mtime, size } = await stat(avsFile);
 		const effects = Utils.separateEffects(webvs.components);
 		const assets = Utils.getImageAssets(webvs.components);
 		const fonts = Utils.getFontAssets(webvs.components);
@@ -75,9 +74,11 @@ export async function info(inputFiles, options = defaultOptions) {
 			console.log(`File: ${colors.green(avsFile)}`);
 			console.log(/* let it breathe */);
 
-			console.log(`Size: ${colors.blue(prettyBytes(size))}`);
-			console.log(`Modified: ${colors.blue(new Date(mtime).toUTCString())}`);
-			console.log(`SHA-256: ${colors.blue(await Utils.hashFile(avsFile))}`);
+			const { hash, modified, size } = await Utils.getFileInfo(avsFile);
+
+			console.log(`Size: ${colors.blue(size)}`);
+			console.log(`Modified: ${colors.blue(modified)}`);
+			console.log(`SHA-256: ${colors.blue(hash)}`);
 
 			Utils.printSummary('Effects', effects.builtin);
 			Utils.printSummary('APEs', effects.plugin);

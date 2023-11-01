@@ -49,17 +49,23 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 
 	console.log(/* let it breathe */);
 	console.log(`File #1: ${colors.green(basename(sourceFile))}`);
+
 	if (options.details) {
-		console.log(`- Size: ${colors.blue(prettyBytes(sourceStats.size))}`);
-		console.log(`- Modified: ${colors.blue(new Date(sourceStats.mtime).toUTCString())}`);
+		const { modified, size } = await Utils.getFileInfo(sourceFile);
+
+		console.log(`- Size: ${colors.blue(size)}`);
+		console.log(`- Modified: ${colors.blue(modified)}`);
 
 		console.log(/* let it breathe */);
 	}
 
 	console.log(`File #2: ${colors.green(basename(targetFile))}`);
+
 	if (options.details) {
-		console.log(`- Size: ${colors.blue(prettyBytes(targetStats.size))}`);
-		console.log(`- Modified: ${colors.blue(new Date(targetStats.mtime).toUTCString())}`);
+		const { modified, size } = await Utils.getFileInfo(targetFile);
+
+		console.log(`- Size: ${colors.blue(size)}`);
+		console.log(`- Modified: ${colors.blue(modified)}`);
 	}
 
 	printDistance('Preset', normalizedSource, normalizedTarget, options);
@@ -85,7 +91,7 @@ function printDistance(label, source, target, options) {
 		'-',
 		'Average length:',
 		colors.blue(averageLength),
-		options.details ? colors.dim(`(${source.length}, ${target.length})`) : ''
+		options.details ? colors.dim(`(${source.length}/${target.length})`) : ''
 	];
 
 	const levenshteinDistance = [
