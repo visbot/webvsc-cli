@@ -1,6 +1,6 @@
 import { createReadStream, promises as fs } from 'node:fs';
+import { stat } from 'node:fs/promises';
 import colors from 'picocolors';
-import { createHash } from 'node:crypto';
 
 const pluginEffects = [
 	'AddBorders',
@@ -33,10 +33,11 @@ const formatter = new Intl.NumberFormat('en-US', {
 	maximumFractionDigits: 4
 });
 
-export function isAPE(type: string) {
+function isAPE(type: string) {
 	return pluginEffects.includes(type);
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getImageAssets(components: any) {
 	const foundAssets = [];
 
@@ -70,6 +71,7 @@ export function getImageAssets(components: any) {
 	return foundAssets.sort();
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getFontAssets(components: any) {
 	const foundAssets = [];
 
@@ -112,17 +114,19 @@ export function printSummary(label: string, items: string[]) {
 
 	if (uniqueItems.length) {
 		console.log(/* let it breathe */);
-		console.log(`  ${label}`);
+		console.log(`${label}:`);
 
 		for (const item of uniqueItems.sort()) {
 			const occurences = items.filter(i => i === item).length;
-			console.log(`  - ${colors.cyan(item)} ${colors.dim('(' + occurences + ')')}`);
+			console.log(`- ${colors.cyan(item)} ${colors.dim('(' + occurences + ')')}`);
 		}
 	}
 }
 
-async function hashStream(stream: NodeJS.ReadableStream, hash = 'sha256'): Promise<string> {
-	const hashingFunction = createHash('sha256');
+async function hashStream(stream: NodeJS.ReadableStream, algorithm = 'sha256'): Promise<string> {
+	const { createHash } = await import('node:crypto');
+
+	const hashingFunction = createHash(algorithm);
 
 	return new Promise((resolve, reject) => {
 		stream
@@ -132,10 +136,10 @@ async function hashStream(stream: NodeJS.ReadableStream, hash = 'sha256'): Promi
 	});
 }
 
-export async function hashFile(inputFile: string, hash = 'sha256'): Promise<string> {
+export async function hashFile(inputFile: string, algorithm = 'sha256'): Promise<string> {
 	await fs.access(inputFile);
 
-	return await hashStream(createReadStream(inputFile), hash);
+	return await hashStream(createReadStream(inputFile), algorithm);
 }
 
 export function mapTypes(components, key = 'type') {
@@ -153,4 +157,28 @@ export function formatDuration(start) {
 	const duration = formatter.format((end - start));
 
 	return colors.dim(`${duration}ms`);
+}
+
+export function normalizePreset(preset) {
+	// strip metadata
+	delete preset.name;
+	delete preset.date;
+
+	return JSON
+		.stringify(preset)
+		.replaceAll(':true', ':1')
+		.replaceAll(':false', ':0');
+}
+
+export async function getFileInfo(filePath: string)	{
+	const prettyBytes = (await import('pretty-bytes')).default;
+
+	const { ctime, mtime, size } = await stat(filePath);
+
+	return {
+		created: new Date(ctime).toUTCString(),
+		modified: new Date(mtime).toUTCString(),
+		hash: await hashFile(filePath),
+		size: prettyBytes(size)
+	}
 }

@@ -1,8 +1,6 @@
 import { convertFile, defaultOptions } from "./shared";
-import { stat } from 'node:fs/promises';
 import * as Utils from '../utils';
 import colors from 'picocolors';
-import prettyBytes from "pretty-bytes";
 
 export async function info(inputFiles, options = defaultOptions) {
 	const summary = {
@@ -36,7 +34,6 @@ export async function info(inputFiles, options = defaultOptions) {
 			continue;
 		}
 
-		const { mtime, size } = await stat(avsFile);
 		const effects = Utils.separateEffects(webvs.components);
 		const assets = Utils.getImageAssets(webvs.components);
 		const fonts = Utils.getFontAssets(webvs.components);
@@ -44,38 +41,30 @@ export async function info(inputFiles, options = defaultOptions) {
 		if (options.summary) {
 			if (effects.builtin?.length) {
 				for (const builtin of effects.builtin.sort()) {
-					if (!summary.effects.builtin.includes(builtin)) {
-						summary.effects.builtin.push(builtin);
-					}
+					summary.effects.builtin.push(builtin);
 				}
 			}
 
 			if (effects.plugin?.length) {
 				for (const plugin of effects.plugin.sort()) {
-					if (!summary.effects.plugin.includes(plugin)) {
-						summary.effects.plugin.push(plugin);
-					}
+					summary.effects.plugin.push(plugin);
 				}
 			}
 
 			if (assets?.length) {
 				for (const asset of assets.sort()) {
-					if (!summary.assets.includes(asset)) {
-						summary.assets.push(asset);
-					}
+					summary.assets.push(asset);
 				}
 			}
 
 			if (fonts?.length) {
 				for (const font of fonts.sort()) {
-					if (!summary.fonts.includes(font)) {
-						summary.fonts.push(font);
-					}
+					summary.fonts.push(font);
 				}
 			}
 
 
-			if (avsFile && !summary.presets.includes(avsFile)) {
+			if (avsFile) {
 				summary.presets.push(avsFile);
 			}
 		} else {
@@ -83,9 +72,11 @@ export async function info(inputFiles, options = defaultOptions) {
 			console.log(`File: ${colors.green(avsFile)}`);
 			console.log(/* let it breathe */);
 
-			console.log(`Size: ${colors.blue(prettyBytes(size))}`);
-			console.log(`Modified: ${colors.blue(new Date(mtime).toUTCString())}`);
-			console.log(`SHA-256: ${colors.blue(await Utils.hashFile(avsFile))}`);
+			const { hash, modified, size } = await Utils.getFileInfo(avsFile);
+
+			console.log(`Size: ${colors.blue(size)}`);
+			console.log(`Modified: ${colors.blue(modified)}`);
+			console.log(`SHA-256: ${colors.blue(hash)}`);
 
 			Utils.printSummary('Effects', effects.builtin);
 			Utils.printSummary('APEs', effects.plugin);
@@ -100,6 +91,7 @@ export async function info(inputFiles, options = defaultOptions) {
 	}
 
 	if (options.summary) {
+		// console.log('SUMMARY', summary.effects)
 		Utils.printSummary('Presets', summary.presets.sort());
 		Utils.printSummary('Effects', summary.effects.builtin.sort());
 		Utils.printSummary('APEs', summary.effects.plugin.sort());
