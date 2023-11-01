@@ -37,6 +37,7 @@ export function isAPE(type: string) {
 	return pluginEffects.includes(type);
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getImageAssets(components: any) {
 	const foundAssets = [];
 
@@ -70,6 +71,7 @@ export function getImageAssets(components: any) {
 	return foundAssets.sort();
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function getFontAssets(components: any) {
 	const foundAssets = [];
 
@@ -121,10 +123,10 @@ export function printSummary(label: string, items: string[]) {
 	}
 }
 
-async function hashStream(stream: NodeJS.ReadableStream, hash = 'sha256'): Promise<string> {
+async function hashStream(stream: NodeJS.ReadableStream, algorithm = 'sha256'): Promise<string> {
 	const { createHash } = await import('node:crypto');
 
-	const hashingFunction = createHash('sha256');
+	const hashingFunction = createHash(algorithm);
 
 	return new Promise((resolve, reject) => {
 		stream
@@ -134,10 +136,10 @@ async function hashStream(stream: NodeJS.ReadableStream, hash = 'sha256'): Promi
 	});
 }
 
-export async function hashFile(inputFile: string, hash = 'sha256'): Promise<string> {
+export async function hashFile(inputFile: string, algorithm = 'sha256'): Promise<string> {
 	await fs.access(inputFile);
 
-	return await hashStream(createReadStream(inputFile), hash);
+	return await hashStream(createReadStream(inputFile), algorithm);
 }
 
 export function mapTypes(components, key = 'type') {
