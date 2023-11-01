@@ -31,6 +31,7 @@ export function main() {
 		.option('-D, --debug', 'print additional debug information', false)
 		.option('-d, --details', 'print additionals details about the diff', false)
 		.option('-l, --levenshtein', 'calculates Levenshtein distance', false)
+		.option('-m, --myers', 'calculates Myers difference', false)
 		.option('-n, --needleman-wunsch', 'calculates Needleman-Wunsch alignment', false)
 		.action(async (file1, file2, options) => {
 			const { diff } = await import('./actions/diff');
