@@ -1,8 +1,6 @@
-import { createHash } from 'node:crypto';
 import { createReadStream, promises as fs } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import colors from 'picocolors';
-import prettyBytes from 'pretty-bytes';
 
 const pluginEffects = [
 	'AddBorders',
@@ -124,6 +122,8 @@ export function printSummary(label: string, items: string[]) {
 }
 
 async function hashStream(stream: NodeJS.ReadableStream, hash = 'sha256'): Promise<string> {
+	const { createHash } = await import('node:crypto');
+
 	const hashingFunction = createHash('sha256');
 
 	return new Promise((resolve, reject) => {
@@ -169,6 +169,8 @@ export function normalizePreset(preset) {
 }
 
 export async function getFileInfo(filePath: string)	{
+	const prettyBytes = (await import('pretty-bytes')).default;
+
 	const { ctime, mtime, size } = await stat(filePath);
 
 	return {
