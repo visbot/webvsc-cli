@@ -1,8 +1,6 @@
 import { convertFile, defaultOptions } from "./shared";
-import { stat } from 'node:fs/promises';
 import * as Utils from '../utils';
 import colors from 'picocolors';
-import prettyBytes from "pretty-bytes";
 
 export async function info(inputFiles, options = defaultOptions) {
 	const summary = {

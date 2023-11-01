@@ -6,7 +6,6 @@ import * as Utils from '../utils';
 import colors from 'picocolors';
 import leven from 'leven';
 import logSymbols from 'log-symbols';
-import prettyBytes from 'pretty-bytes';
 
 type Options = {
 	debug: boolean,
@@ -43,9 +42,6 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 
 	const sourceGroupStructure = await getStructure(sourcePreset, 'group');
 	const targetGroupStructure = await getStructure(targetPreset, 'group');
-
-	const sourceStats = await stat(sourceFile);
-	const targetStats = await stat(targetFile);
 
 	console.log(/* let it breathe */);
 	console.log(`File #1: ${colors.green(basename(sourceFile))}`);
