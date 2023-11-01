@@ -33,7 +33,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 	maximumFractionDigits: 4
 });
 
-export function isAPE(type: string) {
+function isAPE(type: string) {
 	return pluginEffects.includes(type);
 }
 

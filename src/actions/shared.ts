@@ -3,7 +3,7 @@ import { convertPreset } from '@visbot/webvsc';
 import { basename } from "node:path";
 import { readFile, stat } from 'node:fs/promises';
 
-export type Options = {
+type Options = {
 	indent?: number,
 	debug?: boolean,
 	details?: boolean,

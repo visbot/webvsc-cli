@@ -9,7 +9,7 @@ type Options = {
 	details: boolean
 }
 
-export const defaultOptions: Options = {
+const defaultOptions: Options = {
 	debug: false,
 	details: false
 }
