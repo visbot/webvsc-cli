@@ -90,7 +90,7 @@ async function printDistance(label, source, target, options) {
 
 		const levenshteinDistance = [
 			'-',
-			'Levenshtein distance:',
+			'Levenshtein:',
 			colors.blue(distance),
 			options.details ? colors.dim(`(${distance / averageLength})`) : ''
 		];
@@ -106,7 +106,7 @@ async function printDistance(label, source, target, options) {
 		const { score, alignment } = aligner.align(source, target);
 		const [ sourceAlignment, targetAlignment ] = alignment.split('\n');
 
-		logMessages.push(`- Needleman-Wunsch score: ${colors.blue(score)}`);
+		logMessages.push(`- Needleman-Wunsch: ${colors.blue(score)}`);
 
 		if (options.details) {
 			logMessages.push(`  - Source: ${colors.dim(sourceAlignment)}`);
