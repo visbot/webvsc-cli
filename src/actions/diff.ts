@@ -1,6 +1,5 @@
 import { basename } from 'node:path';
 import { convertFile } from './shared';
-import { diffChars } from 'diff';
 import * as Utils from '../utils';
 import colors from 'picocolors';
 import logSymbols from 'log-symbols';
@@ -24,9 +23,11 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 		});
 	}
 
+	console.log(/* let it breathe */);
+
 	if (sourceFile === targetFile) {
-		console.log(/* let it breathe */);
 		console.log (`${logSymbols.warning} The two files are the same`);
+		console.log(/* let it breathe */);
 	}
 
 	const sourcePreset = await convertFile(sourceFile, options);
@@ -41,7 +42,6 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 	const sourceGroupStructure = await getStructure(sourcePreset, 'group');
 	const targetGroupStructure = await getStructure(targetPreset, 'group');
 
-	console.log(/* let it breathe */);
 	console.log(`File #1: ${colors.green(basename(sourceFile))}`);
 
 	if (options.details) {
@@ -117,11 +117,13 @@ async function printDistance(label, source, target, options) {
 	logMessages.map(message => console.log(message));
 
 	if (options.myers) {
-		printDiff(source, target);
+		await printDiff(source, target);
 	}
 }
 
-function printDiff(source, target) {
+async function printDiff(source, target) {
+	const { diffChars } = await import('diff');
+
 	const sourceJSON = typeof source === 'string' ? source : JSON.stringify(source);
 	const targetJSON = typeof target === 'string' ? target : JSON.stringify(target);
 
