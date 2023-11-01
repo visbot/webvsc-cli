@@ -63,15 +63,8 @@ export async function diff(sourceFile, targetFile, options = defaultOptions) {
 	}
 
 	await printDistance('Preset', normalizedSource, normalizedTarget, options);
-	if (options.details) {
-		printDiff(sourcePreset, targetPreset);
-	}
-
 	await printDistance('Effect Structure', sourceEffectStructure, targetEffectStructure, options);
-	printDiff(sourceEffectStructure, targetEffectStructure);
-
 	await printDistance('Effect Group Structure', sourceGroupStructure, targetGroupStructure, options);
-	printDiff(sourceGroupStructure, targetGroupStructure);
 }
 
 async function printDistance(label, source, target, options) {
@@ -114,11 +107,18 @@ async function printDistance(label, source, target, options) {
 		const [ sourceAlignment, targetAlignment ] = alignment.split('\n');
 
 		logMessages.push(`- Needleman-Wunsch score: ${colors.blue(score)}`);
-		logMessages.push(`  - Source: ${colors.dim(sourceAlignment)}`);
-		logMessages.push(`  - Target: ${colors.dim(targetAlignment)}`);
+
+		if (options.details) {
+			logMessages.push(`  - Source: ${colors.dim(sourceAlignment)}`);
+			logMessages.push(`  - Target: ${colors.dim(targetAlignment)}`);
+		}
 	}
 
 	logMessages.map(message => console.log(message));
+
+	if (options.myers) {
+		printDiff(source, target);
+	}
 }
 
 function printDiff(source, target) {
