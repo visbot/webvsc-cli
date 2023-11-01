@@ -18,9 +18,9 @@
     "README.md",
     "webvsc.mjs"
   ],
-	"engines": {
-		"node": ">=18"
-	},
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/idleberg/webvsc-cli.git"
@@ -42,7 +42,7 @@
     "diff": "^5.1.0",
     "graceful-fs": "^4.2.11",
     "leven": "^4.0.0",
-    "log-symbols": "^5.1.0",
+    "log-symbols": "^6.0.0",
     "picocolors": "^1.0.0",
     "pretty-bytes": "^6.1.1",
     "seqalign": "^1.0.6"
