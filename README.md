@@ -65,6 +65,18 @@ $ webvs info example.avs
 $ webvs info ./Plugins/avs/**/*.avs --summary
 ```
 
+#### `diff`
+
+Approximates the difference between two presets
+
+**Example:**
+
+```sh
+$ webvs diff preset1.avs preset2.avs -mld
+```
+
+:warning: This command requires additional flags to be set, see `webvsc diff --help` for details.
+
 ### Troubleshooting
 
 When trying to convert a large number of files, you might run into an `EMFILE` error. This is a well-documented [issue](https://github.com/nodejs/node/issues/1941) that occurs whenever the number of [maximum open files](http://blog.izs.me/post/56827866110/wtf-is-emfile-and-why-does-it-happen-to-me) exceeds its limit. In such a case, you can use the following as workaround.
