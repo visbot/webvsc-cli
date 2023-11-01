@@ -20,7 +20,7 @@ To use the tool without installation, you can use the `npx` command:
 
 ```sh
 npx @visbot/webvsc-cli
-``````
+```
 
 ## Usage
 
@@ -31,15 +31,16 @@ Once setup, you can run `webvsc --help` to list available options:
 ```
 $ webvsc
 
-Usage: cli [options] [command]
+Usage: webvsc [options] [command]
 
 Options:
-  -h, --help                   display help for command
+  -h, --help                          display help for command
 
 Commands:
-  convert [options] <file...>  convert presets to JSON format
-  info [options] <file...>     show info about AVS presets
-  help [command]               display help for command
+  convert [options] <file...>         convert presets to JSON format, supports glob patterns
+  info [options] <file...>            show info about AVS presets, supports glob patterns
+  diff [options] <preset1> <preset2>  approximates similarity between two AVS presets
+  help [command]                      display help for command
 ```
 
 Refer to the help for each sub-command to list its options.
