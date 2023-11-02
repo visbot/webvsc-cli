@@ -101,9 +101,9 @@ async function printDistance(label, source, target, options) {
 	if (options.needlemanWunsch) {
 		const { NWaligner } = await import('seqalign');
 
-		const aligner = NWaligner();
+		const needlemanWunsch = NWaligner();
 
-		const { score, alignment } = aligner.align(source, target);
+		const { score, alignment } = needlemanWunsch.align(source, target);
 		const [ sourceAlignment, targetAlignment ] = alignment.split('\n');
 
 		logMessages.push(`- Needleman-Wunsch: ${colors.blue(score)}`);
