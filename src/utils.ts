@@ -28,6 +28,18 @@ const pluginEffects = [
 	'VideoDelay'
 ];
 
+const impactfulEffects = [
+	'Bump',
+	// 'ColorMap',
+	// 'ConvolutionFilter',
+	'DynamicDistanceModifier',
+	'DynamicMovement',
+	'DynamicShift',
+	'Movement',
+	'SuperScope',
+	'TexerII'
+];
+
 const formatter = new Intl.NumberFormat('en-US', {
 	minimumFractionDigits: 1,
 	maximumFractionDigits: 4
@@ -150,6 +162,37 @@ export function mapTypes(components, key = 'type') {
 
 		return i[key];
 	});
+}
+
+export function getCodableEffects(components) {
+	const effects = [];
+
+	components
+		.forEach(i => {
+			if (!impactfulEffects.includes(i.type) && i.type !== 'EffectList') {
+				return;
+			}
+
+		if (i.type === 'EffectList') {
+			effects.push({
+				type: i.type,
+				code: {
+					init: i.code.init,
+					perFrame: i.code.perFrame
+				}
+			});
+
+			effects.push(...getCodableEffects(i.components));
+			return;
+		}
+
+		effects.push({
+			type: i.type,
+			code: i.code
+		});
+	});
+
+	return effects;
 }
 
 export function formatDuration(start) {
