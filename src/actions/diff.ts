@@ -109,8 +109,8 @@ async function printDistance(label, source, target, options) {
 		logMessages.push(`- Needleman-Wunsch: ${colors.blue(score)}`);
 
 		if (options.details) {
-			logMessages.push(`  - Source: ${colors.dim(sourceAlignment)}`);
-			logMessages.push(`  - Target: ${colors.dim(targetAlignment)}`);
+			logMessages.push(`  - File #1: ${colors.dim(sourceAlignment)}`);
+			logMessages.push(`  - File #2: ${colors.dim(targetAlignment)}`);
 		}
 	}
 
