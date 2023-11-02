@@ -1,4 +1,4 @@
-# webvsc-cli
+# @visbot/webvsc-cli
 
 [![License](https://img.shields.io/github/license/idleberg/webvsc-cli?color=blue&style=for-the-badge)](https://github.com/idleberg/webvsc-cli/blob/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@visbot/webvsc-cli?style=for-the-badge)](https://www.npmjs.org/package/@visbot/webvsc-cli)
