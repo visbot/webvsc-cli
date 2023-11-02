@@ -62,7 +62,7 @@
     "build": "tsup",
     "dev": "npm run start",
     "lint": "npm-run-all --parallel lint:*",
-    "lint:deps": "knip",
+    "lint:deps": "knip --production",
     "lint:ts": "eslint ./src --ignore-path .gitignore",
     "prepack": "npm run build",
     "prepare": "husky install",
