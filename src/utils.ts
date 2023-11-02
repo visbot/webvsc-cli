@@ -29,12 +29,12 @@ const pluginEffects = [
 ];
 
 const impactfulEffects = [
+	// 'AVSTransAutomation',
 	'Bump',
-	// 'ColorMap',
-	// 'ConvolutionFilter',
 	'DynamicDistanceModifier',
 	'DynamicMovement',
 	'DynamicShift',
+	// 'GlobalVariables',
 	'Movement',
 	'SuperScope',
 	'TexerII'
