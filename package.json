@@ -7,7 +7,7 @@
     "idleberg",
     "grandchild"
   ],
-  "homepage": "https://github.com/idleberg/webvsc-cli#readme",
+  "homepage": "https://github.com/visbot/webvsc-cli#readme",
   "type": "module",
   "bin": {
     "webvsc": "./webvsc.mjs"
@@ -23,10 +23,10 @@
 	},
   "repository": {
     "type": "git",
-    "url": "https://github.com/idleberg/webvsc-cli.git"
+    "url": "https://github.com/visbot/webvsc-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/idleberg/webvsc-cli/issues"
+    "url": "https://github.com/visbot/webvsc-cli/issues"
   },
   "keywords": [
     "avs",
