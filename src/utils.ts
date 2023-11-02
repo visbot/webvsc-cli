@@ -31,13 +31,15 @@ const pluginEffects = [
 const impactfulEffects = [
 	// 'AVSTransAutomation',
 	'Bump',
+	'ColorModifier',
 	'DynamicDistanceModifier',
 	'DynamicMovement',
 	'DynamicShift',
 	// 'GlobalVariables',
 	'Movement',
 	'SuperScope',
-	'TexerII'
+	'TexerII',
+	'Triangle'
 ];
 
 const formatter = new Intl.NumberFormat('en-US', {
