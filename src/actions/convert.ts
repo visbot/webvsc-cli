@@ -1,14 +1,12 @@
 import { basename, extname } from "node:path";
 import { convertFile, defaultOptions } from "./shared";
 import { writeFile } from 'node:fs/promises';
-import { watch } from 'chokidar';
 import * as Utils from '../utils';
-import colors from 'picocolors';
 import logSymbols from 'log-symbols';
 
 export async function convert(inputFiles, options = defaultOptions) {
 	if (options.watch) {
-		__watch(inputFiles, options);
+		await __watch(inputFiles, options);
 	} else {
 		if (!options.quiet) {
 			console.log(/* let it breathe */);
@@ -24,7 +22,9 @@ export async function convert(inputFiles, options = defaultOptions) {
 	}
 }
 
-function __watch(inputFiles, options = defaultOptions) {
+async function __watch(inputFiles, options = defaultOptions) {
+	const { watch } = await import('chokidar');
+
 	if (!options.quiet) {
 		console.log(/* let it breathe */);
 		console.log('👓 Watching for changes...');
@@ -53,6 +53,8 @@ function __watch(inputFiles, options = defaultOptions) {
 }
 
 async function __convert(inputFiles, options = defaultOptions) {
+	const colors = (await import('picocolors')).default;
+
 	const avsFiles = Array.isArray(inputFiles)
 		? inputFiles
 		: [inputFiles];

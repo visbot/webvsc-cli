@@ -1,8 +1,9 @@
 import { convertFile, defaultOptions } from "./shared";
 import * as Utils from '../utils';
-import colors from 'picocolors';
 
 export async function info(inputFiles, options = defaultOptions) {
+	const colors = (await import('picocolors')).default;
+
 	const summary = {
 		assets: [],
 		effects: {
