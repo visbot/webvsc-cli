@@ -39,7 +39,7 @@ const impactfulEffects = [
 	'Movement',
 	'SuperScope',
 	'TexerII',
-	'Triangle'
+	// 'Triangle'
 ];
 
 const formatter = new Intl.NumberFormat('en-US', {
