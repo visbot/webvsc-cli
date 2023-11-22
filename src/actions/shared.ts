@@ -1,4 +1,3 @@
-// @ts-ignore
 import { convertPreset } from '@visbot/webvsc';
 import { basename } from "node:path";
 import { readFile, stat } from 'node:fs/promises';
@@ -23,7 +22,7 @@ export const defaultOptions: Options = {
 export async function convertFile(avsFile: string, options: Options = defaultOptions) {
 	const presetName = basename(avsFile, '.avs');
 	const avsBuffer = await readFile(avsFile);
-	const modifiedDate = ((await stat(avsFile)).mtime || new Date()).toISOString();
+	const modifiedDate = ((await stat(avsFile)).mtime || new Date());
 
 	try {
 		return JSON.parse(avsBuffer.toString());
