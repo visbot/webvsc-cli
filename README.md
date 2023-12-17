@@ -82,12 +82,16 @@ $ webvsc diff -mld preset1.avs preset2.avs
 
 When trying to convert a large number of files, you might run into an `EMFILE` error. This is a well-documented [issue](https://github.com/nodejs/node/issues/1941) that occurs whenever the number of [maximum open files](http://blog.izs.me/post/56827866110/wtf-is-emfile-and-why-does-it-happen-to-me) exceeds its limit. In such a case, you can use the following as workaround.
 
-```sh
-# Bash
-$ for dir in avs/*; do echo $dir; webvsc convert "$dir/**/*.avs" --quiet; done
+**Linux/macOS**
 
-# Windows
-$ for /r %i in (avs/*) do webvsc convert %i --quiet
+```sh
+$ for dir in avs/*; do echo $dir; webvsc convert "$dir/**/*.avs" --quiet; done
+```
+
+**Windows**
+
+```powershell
+$ Get-ChildItem -Path .\avs\ -Recurse | ForEach-Object { webvsc convert $_.FullName --quiet }
 ```
 
 ## License
