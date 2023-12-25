@@ -1,5 +1,6 @@
 import { basename, extname } from "node:path";
 import { convertFile, defaultOptions } from "./shared";
+import { glob } from 'glob';
 import { writeFile } from 'node:fs/promises';
 import * as Utils from '../utils';
 import logSymbols from 'log-symbols';
@@ -59,7 +60,7 @@ async function __convert(inputFiles, options = defaultOptions) {
 		? inputFiles
 		: [inputFiles];
 
-	for (const avsFile of avsFiles.sort()) {
+	for (const avsFile of await glob(avsFiles.sort())) {
 		const presetExtension = extname(avsFile);
 
 		if (!['.avs', '.wvs'].includes(presetExtension)) {

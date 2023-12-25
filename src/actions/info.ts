@@ -1,4 +1,5 @@
 import { convertFile, defaultOptions } from "./shared";
+import { glob } from 'glob';
 import * as Utils from '../utils';
 
 export async function info(inputFiles, options = defaultOptions) {
@@ -14,7 +15,7 @@ export async function info(inputFiles, options = defaultOptions) {
 		presets: []
 	};
 
-	for (const avsFile of inputFiles.sort()) {
+	for (const avsFile of await glob(inputFiles.sort())) {
 		let webvs;
 
 		try {

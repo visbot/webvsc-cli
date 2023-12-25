@@ -40,6 +40,7 @@
     "chokidar": "^3.5.3",
     "commander": "^11.1.0",
     "diff": "^5.1.0",
+    "glob": "^10.3.10",
     "leven": "^4.0.0",
     "log-symbols": "^6.0.0",
     "picocolors": "^1.0.0",
