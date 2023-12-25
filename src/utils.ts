@@ -28,19 +28,19 @@ const pluginEffects = [
 	'VideoDelay'
 ];
 
-const impactfulEffects = [
-	// 'AVSTransAutomation',
-	'Bump',
-	'ColorModifier',
-	'DynamicDistanceModifier',
-	'DynamicMovement',
-	'DynamicShift',
-	// 'GlobalVariables',
-	'Movement',
-	'SuperScope',
-	'TexerII',
-	// 'Triangle'
-];
+// const impactfulEffects = [
+// 	// 'AVSTransAutomation',
+// 	'Bump',
+// 	'ColorModifier',
+// 	'DynamicDistanceModifier',
+// 	'DynamicMovement',
+// 	'DynamicShift',
+// 	// 'GlobalVariables',
+// 	'Movement',
+// 	'SuperScope',
+// 	'TexerII',
+// 	// 'Triangle'
+// ];
 
 const formatter = new Intl.NumberFormat('en-US', {
 	minimumFractionDigits: 1,
@@ -166,36 +166,36 @@ export function mapTypes(components, key = 'type') {
 	});
 }
 
-export function getCodableEffects(components) {
-	const effects = [];
+// export function getCodableEffects(components) {
+// 	const effects = [];
 
-	components
-		.forEach(i => {
-			if (!impactfulEffects.includes(i.type) && i.type !== 'EffectList') {
-				return;
-			}
+// 	components
+// 		.forEach(i => {
+// 			if (!impactfulEffects.includes(i.type) && i.type !== 'EffectList') {
+// 				return;
+// 			}
 
-		if (i.type === 'EffectList') {
-			effects.push({
-				type: i.type,
-				code: {
-					init: i.code.init,
-					perFrame: i.code.perFrame
-				}
-			});
+// 		if (i.type === 'EffectList') {
+// 			effects.push({
+// 				type: i.type,
+// 				code: {
+// 					init: i.code.init,
+// 					perFrame: i.code.perFrame
+// 				}
+// 			});
 
-			effects.push(...getCodableEffects(i.components));
-			return;
-		}
+// 			effects.push(...getCodableEffects(i.components));
+// 			return;
+// 		}
 
-		effects.push({
-			type: i.type,
-			code: i.code
-		});
-	});
+// 		effects.push({
+// 			type: i.type,
+// 			code: i.code
+// 		});
+// 	});
 
-	return effects;
-}
+// 	return effects;
+// }
 
 export function formatDuration(start) {
 	const end = performance.now();
