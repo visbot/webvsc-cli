@@ -1,4 +1,4 @@
-import { basename, extname } from "node:path";
+import { basename, dirname, extname, join } from "node:path";
 import { convertFile, defaultOptions } from "./shared";
 import { glob } from 'glob';
 import { writeFile } from 'node:fs/promises';
@@ -70,12 +70,13 @@ async function __convert(inputFiles, options = defaultOptions) {
 			return;
 		}
 
+		const presetDir = options?.outdir || dirname(avsFile);
 		const presetName = basename(avsFile, presetExtension);
 		const start = performance.now();
 
 		try {
 			const webvs = await convertFile(avsFile, options);
-			await writeFile(`${presetName}.webvs`, JSON.stringify(webvs, null, options.indent), 'utf-8');
+			await writeFile(`${join(presetDir, presetName)}.webvs`, JSON.stringify(webvs, null, options.indent), 'utf-8');
 
 			if (!options.quiet) {
 				console.log(logSymbols.success, `Converted ${colors.cyan(`${presetName}.avs`)} ${Utils.formatDuration(start)}`);

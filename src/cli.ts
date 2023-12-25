@@ -6,6 +6,7 @@ export function main() {
 		.description('convert presets to JSON format, supports glob patterns')
 		.option('-D, --debug', 'print additional debug information', false)
 		.option('-i, --indent <n>', 'specify default indentation JSON', i => parseInt(i, 10), 2)
+		.option('-o, --outdir <dir>', 'set a custom output directory')
 		.option('-q, --quiet', 'print errors only')
 		.option('-w, --watch', 'only convert changed files')
 		.action(async (args, options) => {

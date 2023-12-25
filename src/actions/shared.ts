@@ -6,6 +6,7 @@ type Options = {
 	indent?: number,
 	debug?: boolean,
 	details?: boolean,
+	outdir?: string,
 	quiet?: boolean,
 	summary?: false
 	watch?: boolean,
@@ -16,6 +17,7 @@ export const defaultOptions: Options = {
 	debug: false,
 	details: false,
 	quiet: false,
+	outdir: process.cwd(),
 	watch: false
 }
 
