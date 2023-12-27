@@ -19,7 +19,7 @@ $ npm install --global @visbot/webvsc-cli
 To use the tool without installation, you can use the `npx` command:
 
 ```sh
-npx @visbot/webvsc-cli
+$ npx @visbot/webvsc-cli
 ```
 
 ## Usage
