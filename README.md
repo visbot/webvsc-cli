@@ -29,8 +29,6 @@ $ npx @visbot/webvsc-cli
 Once setup, you can run `webvsc --help` to list available options:
 
 ```txt
-$ webvsc
-
 Usage: webvsc [options] [command]
 
 Options:
